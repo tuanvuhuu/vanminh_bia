@@ -8,7 +8,7 @@ export default function About() {
         {/* Ảnh */}
         <div className="relative">
           <div className="overflow-hidden rounded-2xl border border-gold/30">
-            <img src="/images/anh_bia.jpg" alt="Xưởng Dương Minh Billiards" className="w-full" />
+            <img src="/images/anh_bia.jpg" alt="Xưởng Vikings Billiards" className="w-full" />
           </div>
           <div className="absolute -bottom-6 -right-4 hidden rounded-xl border border-gold/40 bg-bg p-5 shadow-xl sm:block">
             <p className="font-display text-3xl font-bold text-accent-ink">10+ năm</p>
@@ -20,7 +20,7 @@ export default function About() {
         <div>
           <SectionTitle
             eyebrow="Về chúng tôi"
-            title="Vì sao chọn Dương Minh Billiards?"
+            title="Vì sao chọn Vikings Billiards?"
             desc={`${brand.name} là xưởng sản xuất bàn bi-a uy tín tại ${brand.address}. Chúng tôi tự hào mang đến những sản phẩm chất lượng cao với mức giá tận gốc.`}
             center={false}
           />

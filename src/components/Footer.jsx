@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container-x grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <img src="/images/logo.jpg" alt={brand.name} className="h-12 w-auto rounded" />
+            <img src="/images/logo-gold.png" alt={brand.name} className="h-14 w-auto" />
           </div>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-400">
             {brand.name} — {brand.slogan}. {brand.tagline}. Cam kết chất lượng, giá tận gốc,

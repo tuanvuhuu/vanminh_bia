@@ -17,7 +17,7 @@ export default function Services() {
         <SectionTitle
           eyebrow="Dịch vụ"
           title="Giải pháp trọn gói cho CLB bi-a"
-          desc="Từ tư vấn thiết kế đến thi công, bảo trì — Dương Minh Billiards đồng hành cùng bạn trên cả chặng đường."
+          desc="Từ tư vấn thiết kế đến thi công, bảo trì — Vikings Billiards đồng hành cùng bạn trên cả chặng đường."
         />
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">

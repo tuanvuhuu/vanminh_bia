@@ -1,16 +1,16 @@
-// Thông tin thương hiệu Dương Minh Billiards
+// Thông tin thương hiệu VIKINGS BILLIARDS
 export const brand = {
-  name: 'Dương Minh Billiards',
-  slogan: 'Xưởng sản xuất bàn bi-a chính hãng',
-  tagline: 'Chuyên cung cấp & tư vấn setup CLB bi-a chính hãng',
-  address: 'Thôn Ngọc - Lạc Đạo - Văn Lâm - Hưng Yên',
-  phoneSales: '0976.983.983',
-  phoneTech: '0576.583.983',
-  email: 'duongminhbilliards@gmail.com',
-  zalo: '0976983983',
+  name: 'Vikings Billiards',
+  slogan: 'Premium Quality · Affordable Price',
+  tagline: 'Bàn bi-a Vikings chính hãng — chất lượng vượt trội, giá hợp lý',
+  address: '89 P. Thành Trung, Trâu Quỳ, Gia Lâm, Hà Nội',
+  phoneSales: '0976.983.943',
+  phoneTech: '0979.294.826',
+  email: 'vikingsbilliards@gmail.com',
+  zalo: '0976983943',
   facebook: 'https://facebook.com/',
   mapEmbed:
-    'https://www.google.com/maps?q=L%E1%BA%A1c+%C4%90%E1%BA%A1o+V%C4%83n+L%C3%A2m+H%C6%B0ng+Y%C3%AAn&output=embed',
+    'https://www.google.com/maps?q=Tr%C3%A2u+Qu%E1%BB%B3+Gia+L%C3%A2m+H%C3%A0+N%E1%BB%99i&output=embed',
 }
 
 export const navLinks = [
@@ -31,55 +31,89 @@ export const languages = [
   { code: 'km', label: 'ខ្មែរ', flag: '🇰🇭' },
 ]
 
+// Banner cho hero slider
+export const banners = [
+  { img: '/images/banner-premium.jpg', title: 'Premium Quality', sub: 'Affordable Price' },
+  { img: '/images/banner-dragon.jpg', title: 'Dragon Black', sub: 'Exquisite Present' },
+  { img: '/images/banner-blackheart.jpg', title: 'Black Heart', sub: 'Quality · Uniqueness' },
+  { img: '/images/banner-revolutionary.jpg', title: 'Revolutionary Design', sub: 'Superior Quality' },
+]
+
 export const stats = [
   { value: '10+', label: 'Năm kinh nghiệm' },
-  { value: '500+', label: 'CLB đã setup' },
+  { value: '1000+', label: 'Bàn đã bàn giao' },
+  { value: '5', label: 'Dòng bàn cao cấp' },
   { value: '63', label: 'Tỉnh thành phủ sóng' },
-  { value: '100%', label: 'Bàn chính hãng' },
 ]
 
-// Các dòng bàn bi-a
+// Các dòng bàn bi-a Vikings (giá & thông số theo bảng báo giá)
 export const products = [
   {
-    name: 'Bàn Pool 9 Bi K-Sport',
-    type: 'Pool / Lỗ',
-    price: 'Liên hệ',
-    desc: 'Mặt đá slate Ý cao cấp, băng cao su Artemis, khung thép hộp chịu lực. Phù hợp CLB chuẩn thi đấu.',
-    img: '',
-    tags: ['Đá slate Ý', 'Băng Artemis', 'Bảo hành 5 năm'],
+    name: 'Vikings Monster',
+    code: 'VK25',
+    badge: 'Cao cấp nhất',
+    price: '72.000.000đ',
+    oldPrice: '78.000.000đ',
+    frame: 'Khung thép hợp kim · Nỉ Bông Tuyết',
+    specs: ['Bóng Dyna Titanium', 'Băng Uylin K55', 'Đá đen tự nhiên phẳng 99%', 'Góc hợp kim đúc'],
+    size: 'Phủ bì 290×165×82cm · Sử dụng 254×127cm',
+    image: '/images/spec-monster.jpg',
   },
   {
-    name: 'Bàn Carom 3 Băng Pro',
-    type: 'Carom / Libre',
-    price: 'Liên hệ',
-    desc: 'Sưởi mặt bàn cân bằng nhiệt, vải Simonis 300 Rapide, đạt tiêu chuẩn UMB thi đấu chuyên nghiệp.',
-    img: '',
-    tags: ['Sưởi mặt bàn', 'Vải Simonis', 'Chuẩn UMB'],
+    name: 'Vikings Rise',
+    code: 'VK-RISE',
+    badge: 'Chuẩn thi đấu',
+    price: '79.000.000đ',
+    oldPrice: '85.000.000đ',
+    frame: 'Khung thép hợp kim chân chữ V',
+    specs: ['Bóng Dyna Black Aramit', 'Băng Uylin K55', 'Nỉ CPBA Competition', 'Đá đen tự nhiên 99%'],
+    size: 'Phủ bì 290×165×82cm · Sử dụng 254×127cm',
+    image: '/images/spec-rise.jpg',
   },
   {
-    name: 'Bàn Lỗ Imperial Platinum',
-    type: 'Pool cao cấp',
-    price: 'Liên hệ',
-    desc: 'Thiết kế sang trọng cho không gian VIP, gỗ tự nhiên phủ PU bóng, đường nét tinh xảo.',
-    img: '',
-    tags: ['Gỗ tự nhiên', 'Phong cách VIP', 'Đặt riêng'],
+    name: 'Vikings Hunter Royal',
+    code: 'VK-HUNTER',
+    badge: 'Bán chạy',
+    price: '65.000.000đ',
+    oldPrice: '',
+    frame: 'Chân gỗ tự nhiên (đen / sáng)',
+    specs: ['Bi Dyna Titan', 'Gậy Joss', 'Nỉ Dragon 900', '13 phụ kiện đi kèm'],
+    size: 'Sử dụng 2m54 × 1m27',
+    image: '/images/spec-hunter-black.jpg',
+    gallery: ['/images/spec-hunter-black.jpg', '/images/spec-hunter-wood.jpg'],
   },
   {
-    name: 'Bàn Snooker Tiêu Chuẩn',
-    type: 'Snooker 12ft',
-    price: 'Liên hệ',
-    desc: 'Kích thước thi đấu 12ft, mặt đá 5 tấm nặng, băng L-shape chính xác cao.',
-    img: '',
-    tags: ['12ft thi đấu', 'Đá 5 tấm', 'Băng L-shape'],
+    name: 'Vikings Silver Hero',
+    code: 'VK-SILVER',
+    badge: 'Ưu đãi',
+    price: '50.000.000đ',
+    oldPrice: '55.000.000đ',
+    frame: 'Khung gỗ Polywood · Trắng hoa văn',
+    specs: ['Bóng Diamon Ultra-C', 'Băng Primer đen', 'Nỉ Dragon 900', 'Đá đen tự nhiên 99%'],
+    size: 'Phủ bì 290×165×82cm',
+    image: '/images/spec-silver-hero.jpg',
+  },
+  {
+    name: 'Vikings Hero',
+    code: 'VK-HERO',
+    badge: 'Giá tốt',
+    price: '50.000.000đ',
+    oldPrice: '',
+    frame: 'Chân gỗ đen',
+    specs: ['Bi Diamon Ultra-C', 'Đèn LED vuông', 'Nỉ Dragon 900', '13 phụ kiện đi kèm'],
+    size: 'Sử dụng 2m54 × 1m27',
+    image: '/images/spec-hero.jpg',
   },
 ]
 
-// Phụ kiện
+// Phụ kiện đi kèm / bán lẻ
 export const accessories = [
-  { name: 'Vải bàn (nỉ)', desc: 'Simonis, Strachan, vải Hàn Quốc — đủ màu' },
-  { name: 'Cơ bi-a', desc: 'Cơ Mezz, Predator, cơ tập & cơ thi đấu' },
-  { name: 'Bi phôi', desc: 'Bi Aramith Bỉ, bi pool & carom chính hãng' },
-  { name: 'Combo thay nỉ', desc: 'Trọn bộ thay vải + băng tận nơi' },
+  { name: 'Bi Dyna / Diamon Ultra-C', desc: 'Bi phôi cao cấp, độ tròn & màu sắc chuẩn thi đấu', img: '' },
+  { name: 'Nỉ Dragon 900 / CPBA', desc: 'Vải bàn chuyên nghiệp, độ nảy chuẩn, bền màu', img: '' },
+  { name: 'Gậy Vikings / Joss', desc: 'Đa dạng gậy tập và gậy thi đấu chính hãng', img: '' },
+  { name: 'Tam giác xếp bi', desc: 'Tam giác Đài Loan chuẩn, xếp bi khít đẹp', img: '/images/acc-triangle.webp' },
+  { name: 'Đèn LED vuông', desc: 'Hệ đèn chiếu sáng đều mặt bàn, không chói', img: '' },
+  { name: 'Phụ kiện trọn bộ', desc: 'Găng tay, lơ, khay bi, giá cơ, tấm phủ, chổi vệ sinh…', img: '' },
 ]
 
 // Dịch vụ
@@ -117,8 +151,8 @@ export const portfolio = [
 ]
 
 export const reasons = [
-  { title: 'Sản xuất tận xưởng', desc: 'Giá tận gốc, không qua trung gian, chủ động chất lượng từng chi tiết.' },
-  { title: 'Vật liệu chính hãng', desc: 'Đá slate, vải Simonis, băng Artemis nhập khẩu chính ngạch.' },
+  { title: 'Giá tận gốc', desc: 'Sản xuất & phân phối trực tiếp, không qua trung gian — giá hợp lý nhất.' },
+  { title: 'Vật liệu cao cấp', desc: 'Đá đen tự nhiên phẳng 99%, băng Uylin K55, nỉ CPBA Competition.' },
   { title: 'Bảo hành dài hạn', desc: 'Bảo hành lên đến 5 năm, hỗ trợ kỹ thuật trọn đời sản phẩm.' },
   { title: 'Thi công toàn quốc', desc: 'Đội ngũ lắp đặt chuyên nghiệp, phủ sóng 63 tỉnh thành.' },
 ]
@@ -128,12 +162,12 @@ export const proTeam = [
   {
     name: 'Đỗ Thế Kiên',
     role: 'Cơ thủ Pool chuyên nghiệp',
-    note: 'Đồng hành cùng Dương Minh Billiards trong các giải đấu Pool 9 bi toàn quốc.',
+    note: 'Đồng hành cùng Vikings Billiards trong các giải đấu Pool 9 bi toàn quốc.',
   },
   {
     name: 'Nguyễn Hữu Kỳ',
     role: 'Cơ thủ Carom 3 băng',
-    note: 'Đại diện thương hiệu, tư vấn kỹ thuật bàn carom đạt chuẩn thi đấu.',
+    note: 'Đại diện thương hiệu, tư vấn kỹ thuật bàn đạt chuẩn thi đấu.',
   },
   {
     name: 'Trần Quang Huy',
@@ -146,9 +180,9 @@ export const proTeam = [
 export const testimonials = [
   {
     name: 'Anh Tuấn',
-    place: 'Chủ CLB Vikings Billiards · Hà Nội',
+    place: 'Chủ CLB Vikings · Hà Nội',
     rating: 5,
-    text: 'Xưởng làm bàn chắc chắn, mặt đá phẳng, băng nảy chuẩn. Đội thi công nhiệt tình, đúng tiến độ. Rất hài lòng!',
+    text: 'Bàn Vikings làm chắc chắn, mặt đá phẳng, băng nảy chuẩn. Đội thi công nhiệt tình, đúng tiến độ. Rất hài lòng!',
   },
   {
     name: 'Chị Hương',
@@ -170,7 +204,7 @@ export const news = [
     title: 'Cách chọn vải bàn bi-a phù hợp cho CLB',
     date: '12/06/2026',
     cat: 'Kinh nghiệm',
-    excerpt: 'So sánh vải Simonis, Strachan và vải Hàn Quốc — ưu nhược điểm và mức giá để chọn đúng nhu cầu.',
+    excerpt: 'So sánh nỉ Dragon 900, CPBA Competition và các loại vải phổ biến — ưu nhược điểm và mức giá.',
   },
   {
     title: 'Quy trình setup một CLB bi-a chuẩn từ đầu',
@@ -186,5 +220,5 @@ export const news = [
   },
 ]
 
-// Thương hiệu vật liệu/đối tác
-export const partners = ['Simonis', 'Aramith', 'Artemis', 'Strachan', 'Predator', 'Mezz']
+// Vật liệu / thương hiệu đối tác
+export const partners = ['Dyna Titanium', 'Aramith', 'Uylin K55', 'CPBA', 'Joss', 'Dragon 900']

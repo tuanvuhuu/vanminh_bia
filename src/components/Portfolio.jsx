@@ -9,7 +9,7 @@ export default function Portfolio() {
         <SectionTitle
           eyebrow="Dự án tiêu biểu"
           title="CLB đã setup & bàn giao"
-          desc="Hàng trăm câu lạc bộ bi-a trên toàn quốc đã tin tưởng lựa chọn Dương Minh Billiards."
+          desc="Hàng trăm câu lạc bộ bi-a trên toàn quốc đã tin tưởng lựa chọn Vikings Billiards."
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

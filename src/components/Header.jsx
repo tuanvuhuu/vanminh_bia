@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { brand, navLinks, languages } from '../data/content'
 import ThemeToggle from './ThemeToggle'
+import Logo from './Logo'
 
 export default function Header({ theme, toggle }) {
   const [scrolled, setScrolled] = useState(false)
@@ -56,10 +57,7 @@ export default function Header({ theme, toggle }) {
       >
         <div className="container-x flex h-16 items-center justify-between md:h-20">
           <a href="#home" className="flex items-center gap-3">
-            <img src="/images/logo.jpg" alt={brand.name} className="h-10 w-auto rounded md:h-12" />
-            <span className="hidden font-display text-lg font-bold uppercase text-accent-ink sm:block">
-              Dương Minh<span className="text-content"> Billiards</span>
-            </span>
+            <Logo className="h-10 w-auto md:h-12" />
           </a>
 
           <nav className="hidden items-center gap-6 xl:flex">

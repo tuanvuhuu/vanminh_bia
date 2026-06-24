@@ -8,7 +8,7 @@ export default function Contact() {
   const onSubmit = (e) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
-    const text = `Xin chào Dương Minh Billiards! Tôi là ${data.get('name')} (${data.get(
+    const text = `Xin chào Vikings Billiards! Tôi là ${data.get('name')} (${data.get(
       'phone',
     )}). Nội dung: ${data.get('message')}`
     window.location.href = `https://zalo.me/${brand.zalo}?text=${encodeURIComponent(text)}`
@@ -28,7 +28,7 @@ export default function Contact() {
         <SectionTitle
           eyebrow="Liên hệ"
           title="Nhận báo giá & tư vấn setup CLB"
-          desc="Để lại thông tin, đội ngũ Dương Minh Billiards sẽ liên hệ tư vấn trong thời gian sớm nhất."
+          desc="Để lại thông tin, đội ngũ Vikings Billiards sẽ liên hệ tư vấn trong thời gian sớm nhất."
         />
 
         <div className="grid gap-8 lg:grid-cols-2">
@@ -50,7 +50,7 @@ export default function Contact() {
 
             <div className="overflow-hidden rounded-xl border border-line">
               <iframe
-                title="Bản đồ Dương Minh Billiards"
+                title="Bản đồ Vikings Billiards"
                 src={brand.mapEmbed}
                 className="h-56 w-full"
                 loading="lazy"

@@ -1,66 +1,100 @@
-import { brand, stats } from '../data/content'
+import { useEffect, useState, useCallback } from 'react'
+import { brand, banners, stats } from '../data/content'
 
 export default function Hero() {
+  const [idx, setIdx] = useState(0)
+  const next = useCallback(() => setIdx((i) => (i + 1) % banners.length), [])
+  const go = (i) => setIdx(i)
+
+  useEffect(() => {
+    const t = setInterval(next, 5000)
+    return () => clearInterval(t)
+  }, [next])
+
   return (
-    <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Ảnh nền bìa */}
-      <div className="absolute inset-0">
-        <img
-          src="/images/anh_bia.jpg"
-          alt="Dương Minh Billiards"
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/85 to-ink-900/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-ink-900/60" />
-      </div>
-
-      <div className="container-x relative z-10 pt-24">
-        <div className="max-w-2xl animate-fade-up">
-          <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-sm font-medium text-gold">
-            ★ Xưởng sản xuất bàn bi-a chính hãng
-          </span>
-          <h1 className="heading mt-6 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
-            DƯƠNG MINH
-            <span className="block text-gold">BILLIARDS</span>
-          </h1>
-          <p className="mt-5 max-w-xl text-lg text-gray-300">
-            {brand.tagline}. Sản xuất tận xưởng — giá tận gốc, vật liệu nhập khẩu chính
-            ngạch, thi công &amp; bảo hành trọn gói trên toàn quốc.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#products" className="btn-gold">
-              Xem sản phẩm
-            </a>
-            <a
-              href={`tel:${brand.phoneSales.replace(/\./g, '')}`}
-              className="btn-ghost"
-            >
-              Tư vấn: {brand.phoneSales}
-            </a>
+    <section id="home" className="bg-ink-900 pt-[100px] md:pt-[112px]">
+      {/* Slider */}
+      <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[2/1] lg:aspect-[3/1]">
+        {banners.map((b, i) => (
+          <div
+            key={b.img}
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              i === idx ? 'opacity-100' : 'pointer-events-none opacity-0'
+            }`}
+          >
+            {/* Nền mờ lấp đầy + banner hiển thị trọn vẹn */}
+            <div
+              className="absolute inset-0 scale-110 bg-cover bg-center blur-xl brightness-50"
+              style={{ backgroundImage: `url(${b.img})` }}
+            />
+            <img src={b.img} alt={`${b.title} ${b.sub}`} className="relative z-10 h-full w-full object-contain" />
           </div>
+        ))}
 
-          {/* Thống kê */}
-          <dl className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <dt className="font-display text-3xl font-bold text-gold">{s.value}</dt>
-                <dd className="mt-1 text-sm text-gray-400">{s.label}</dd>
-              </div>
-            ))}
-          </dl>
+        {/* Mũi tên */}
+        <button
+          onClick={() => setIdx((i) => (i - 1 + banners.length) % banners.length)}
+          className="absolute left-3 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-gold hover:text-black sm:flex"
+          aria-label="Banner trước"
+        >
+          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-3 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-gold hover:text-black sm:flex"
+          aria-label="Banner sau"
+        >
+          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+
+        {/* Dots */}
+        <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+          {banners.map((b, i) => (
+            <button
+              key={b.img}
+              onClick={() => go(i)}
+              aria-label={`Banner ${i + 1}`}
+              className={`h-2.5 rounded-full transition-all ${
+                i === idx ? 'w-7 bg-gold' : 'w-2.5 bg-white/50 hover:bg-white'
+              }`}
+            />
+          ))}
         </div>
       </div>
 
-      <a
-        href="#products"
-        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 animate-float text-gold md:block"
-        aria-label="Cuộn xuống"
-      >
-        <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 5v14M19 12l-7 7-7-7" />
-        </svg>
-      </a>
+      {/* Dải CTA + slogan */}
+      <div className="bg-gradient-to-b from-ink-900 to-bg">
+        <div className="container-x py-8 text-center">
+          <h1 className="heading text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+            {brand.name} <span className="text-gold">— {brand.slogan}</span>
+          </h1>
+          <p className="mx-auto mt-3 max-w-2xl text-gray-300">{brand.tagline}</p>
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <a href="#products" className="btn-gold">
+              Xem các mẫu bàn
+            </a>
+            <a href={`tel:${brand.phoneSales.replace(/\./g, '')}`} className="btn-ghost border-gold/60 text-gold">
+              Tư vấn: {brand.phoneSales}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Thống kê */}
+      <div className="border-y border-line bg-surface">
+        <dl className="container-x grid grid-cols-2 gap-6 py-8 sm:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.label} className="text-center">
+              <dt className="font-display text-3xl font-bold text-accent-ink md:text-4xl">{s.value}</dt>
+              <dd className="mt-1 text-sm text-muted">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </section>
   )
 }

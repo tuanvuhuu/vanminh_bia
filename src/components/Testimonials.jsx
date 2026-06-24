@@ -8,7 +8,7 @@ export default function Testimonials() {
         <SectionTitle
           eyebrow="Cảm nhận khách hàng"
           title="Khách hàng nói gì về chúng tôi"
-          desc="Sự hài lòng của hàng trăm chủ CLB trên toàn quốc là động lực để Dương Minh Billiards không ngừng hoàn thiện."
+          desc="Sự hài lòng của hàng trăm chủ CLB trên toàn quốc là động lực để Vikings Billiards không ngừng hoàn thiện."
         />
 
         <div className="grid gap-6 md:grid-cols-3">
