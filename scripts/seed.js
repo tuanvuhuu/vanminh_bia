@@ -1,5 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
 import dotenv from 'dotenv'
+import ws from 'ws'
+
+// Node < 22 chưa có WebSocket native — cung cấp cho supabase-js
+if (!globalThis.WebSocket) globalThis.WebSocket = ws
 
 dotenv.config({ path: '.env.local' })
 

@@ -292,7 +292,7 @@ export default function CrudManager({ config }) {
       {/* Modal form */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-gray-900/40 p-4 sm:p-8">
-          <div className={`${ui.card} w-full max-w-2xl`}>
+          <div className={`${ui.card} w-full max-w-4xl`}>
             <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
               <h3 className="text-lg font-bold text-gray-900">
                 {editingId ? 'Chỉnh sửa' : 'Thêm mới'} — {title}
