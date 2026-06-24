@@ -18,6 +18,7 @@ export const navLinks = [
   { label: 'Sản phẩm', href: '#products' },
   { label: 'Dịch vụ', href: '#services' },
   { label: 'Dự án', href: '#portfolio' },
+  { label: 'Không gian', href: '#gallery' },
   { label: 'VĐV', href: '#proteam' },
   { label: 'Cảm nhận', href: '#feedback' },
   { label: 'Tin tức', href: '#news' },
@@ -222,3 +223,9 @@ export const news = [
 
 // Vật liệu / thương hiệu đối tác
 export const partners = ['Dyna Titanium', 'Aramith', 'Uylin K55', 'CPBA', 'Joss', 'Dragon 900']
+
+// Thư viện ảnh không gian CLB Vikings (render 3D thiết kế)
+export const gallery = Array.from(
+  { length: 49 },
+  (_, i) => `/images/san_pham/gallery-${String(i + 1).padStart(2, '0')}.jpg`,
+)

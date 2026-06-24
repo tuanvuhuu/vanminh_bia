@@ -5,6 +5,7 @@ import Partners from './components/Partners'
 import Products from './components/Products'
 import Services from './components/Services'
 import Portfolio from './components/Portfolio'
+import Gallery from './components/Gallery'
 import ProTeam from './components/ProTeam'
 import Testimonials from './components/Testimonials'
 import About from './components/About'
@@ -24,6 +25,7 @@ export default function App() {
         <Products />
         <Services />
         <Portfolio />
+        <Gallery />
         <ProTeam />
         <Testimonials />
         <About />
