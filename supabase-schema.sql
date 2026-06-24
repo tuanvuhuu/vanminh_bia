@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS services (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   icon TEXT,
   title TEXT NOT NULL,
-  desc TEXT,
+  description TEXT,
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP DEFAULT NOW()
 );

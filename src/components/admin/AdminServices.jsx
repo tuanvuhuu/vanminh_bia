@@ -8,7 +8,7 @@ export default function AdminServices() {
   const [formData, setFormData] = useState({
     icon: '',
     title: '',
-    desc: '',
+    description: '',
   })
 
   useEffect(() => {
