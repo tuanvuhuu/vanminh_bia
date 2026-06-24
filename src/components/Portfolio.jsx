@@ -1,8 +1,10 @@
-import { portfolio } from '../data/content'
+import { useFetchTable } from '../hooks/useFetchTable'
 import SectionTitle from './SectionTitle'
 import TableArt from './TableArt'
 
 export default function Portfolio() {
+  const { data: portfolio, loading } = useFetchTable('portfolio')
+
   return (
     <section id="portfolio" className="section bg-bg">
       <div className="container-x">
@@ -12,6 +14,9 @@ export default function Portfolio() {
           desc="Hàng trăm câu lạc bộ bi-a trên toàn quốc đã tin tưởng lựa chọn Vikings Billiards."
         />
 
+        {loading ? (
+          <p className="text-center text-muted">Đang tải dự án...</p>
+        ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {portfolio.map((c) => (
             <article key={c.name} className="group relative overflow-hidden rounded-xl border border-line">
@@ -43,6 +48,7 @@ export default function Portfolio() {
             </article>
           ))}
         </div>
+        )}
       </div>
     </section>
   )

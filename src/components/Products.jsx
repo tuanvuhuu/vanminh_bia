@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { products, accessories, brand } from '../data/content'
+import { useFetchTable } from '../hooks/useFetchTable'
+import { accessories, brand } from '../data/content'
 import SectionTitle from './SectionTitle'
 import Lightbox from './Lightbox'
 
 export default function Products() {
   const [box, setBox] = useState(null) // { images, startIndex }
+  const { data: products, loading } = useFetchTable('products')
 
   return (
     <section id="products" className="section bg-bg">
@@ -15,6 +17,9 @@ export default function Products() {
           desc="5 dòng bàn bi-a cao cấp — khung thép hợp kim / gỗ tự nhiên, đá đen phẳng 99%, trọn bộ phụ kiện đi kèm."
         />
 
+        {loading ? (
+          <p className="text-center text-muted">Đang tải sản phẩm...</p>
+        ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => {
             const gallery = p.gallery || [p.image]
@@ -95,6 +100,7 @@ export default function Products() {
             </a>
           </article>
         </div>
+        )}
 
         {/* Phụ kiện */}
         <div className="mt-16">

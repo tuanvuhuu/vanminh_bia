@@ -1,7 +1,9 @@
-import { testimonials } from '../data/content'
+import { useFetchTable } from '../hooks/useFetchTable'
 import SectionTitle from './SectionTitle'
 
 export default function Testimonials() {
+  const { data: testimonials, loading } = useFetchTable('testimonials', 'created_at', false)
+
   return (
     <section id="feedback" className="section bg-bg">
       <div className="container-x">
@@ -11,6 +13,9 @@ export default function Testimonials() {
           desc="Sự hài lòng của hàng trăm chủ CLB trên toàn quốc là động lực để Vikings Billiards không ngừng hoàn thiện."
         />
 
+        {loading ? (
+          <p className="text-center text-muted">Đang tải cảm nhận...</p>
+        ) : (
         <div className="grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
             <figure key={t.name} className="card flex flex-col p-7 hover:border-gold/50">
@@ -32,6 +37,7 @@ export default function Testimonials() {
             </figure>
           ))}
         </div>
+        )}
       </div>
     </section>
   )

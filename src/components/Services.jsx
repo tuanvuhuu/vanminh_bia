@@ -1,4 +1,4 @@
-import { services } from '../data/content'
+import { useFetchTable } from '../hooks/useFetchTable'
 import SectionTitle from './SectionTitle'
 
 const icons = {
@@ -11,6 +11,8 @@ const icons = {
 }
 
 export default function Services() {
+  const { data: services, loading } = useFetchTable('services')
+
   return (
     <section id="services" className="section bg-surface">
       <div className="container-x">
@@ -20,6 +22,9 @@ export default function Services() {
           desc="Từ tư vấn thiết kế đến thi công, bảo trì — Vikings Billiards đồng hành cùng bạn trên cả chặng đường."
         />
 
+        {loading ? (
+          <p className="text-center text-muted">Đang tải dịch vụ...</p>
+        ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
             <div
@@ -41,6 +46,7 @@ export default function Services() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </section>
   )

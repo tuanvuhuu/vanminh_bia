@@ -1,7 +1,9 @@
-import { proTeam } from '../data/content'
+import { useFetchTable } from '../hooks/useFetchTable'
 import SectionTitle from './SectionTitle'
 
 export default function ProTeam() {
+  const { data: proTeam, loading } = useFetchTable('pro_team')
+
   return (
     <section id="proteam" className="section bg-surface">
       <div className="container-x">
@@ -11,6 +13,9 @@ export default function ProTeam() {
           desc="Các cơ thủ và huấn luyện viên giàu kinh nghiệm đồng hành cùng thương hiệu, đảm bảo mỗi cây bàn đạt chuẩn thi đấu."
         />
 
+        {loading ? (
+          <p className="text-center text-muted">Đang tải đội ngũ...</p>
+        ) : (
         <div className="grid gap-6 md:grid-cols-3">
           {proTeam.map((m) => (
             <div
@@ -31,6 +36,7 @@ export default function ProTeam() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </section>
   )

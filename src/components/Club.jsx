@@ -1,8 +1,10 @@
-import { clubPosts } from '../data/content'
+import { useFetchTable } from '../hooks/useFetchTable'
 import SectionTitle from './SectionTitle'
 import TableArt from './TableArt'
 
 export default function Club() {
+  const { data: clubPosts, loading } = useFetchTable('club_posts', 'created_at', false)
+
   return (
     <section id="club" className="section bg-surface">
       <div className="container-x">
@@ -12,6 +14,9 @@ export default function Club() {
           desc="Mỗi bài viết là một chủ đề riêng — từ chọn vải, setup đến bảo dưỡng — giúp bạn vận hành câu lạc bộ bi-a hiệu quả nhất."
         />
 
+        {loading ? (
+          <p className="text-center text-muted">Đang tải bài viết...</p>
+        ) : (
         <div className="space-y-16 md:space-y-24">
           {clubPosts.map((post, i) => {
             const reversed = i % 2 === 1
@@ -64,6 +69,7 @@ export default function Club() {
             )
           })}
         </div>
+        )}
       </div>
     </section>
   )
