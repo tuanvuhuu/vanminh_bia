@@ -1,5 +1,5 @@
 import { useFetchTable } from '../hooks/useFetchTable'
-import SectionTitle from './SectionTitle'
+import DBSectionTitle from './DBSectionTitle'
 import TableArt from './TableArt'
 
 export default function Club() {
@@ -8,7 +8,8 @@ export default function Club() {
   return (
     <section id="club" className="section bg-surface">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="club"
           eyebrow="Câu lạc bộ"
           title="Kiến thức & kinh nghiệm vận hành CLB"
           desc="Mỗi bài viết là một chủ đề riêng — từ chọn vải, setup đến bảo dưỡng — giúp bạn vận hành câu lạc bộ bi-a hiệu quả nhất."

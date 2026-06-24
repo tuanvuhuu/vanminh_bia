@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { brand } from '../data/content'
-import SectionTitle from './SectionTitle'
+import DBSectionTitle from './DBSectionTitle'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -25,7 +25,8 @@ export default function Contact() {
   return (
     <section id="contact" className="section bg-bg">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="contact"
           eyebrow="Liên hệ"
           title="Nhận báo giá & tư vấn setup CLB"
           desc="Để lại thông tin, đội ngũ Vikings Billiards sẽ liên hệ tư vấn trong thời gian sớm nhất."

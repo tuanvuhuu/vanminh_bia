@@ -1,3 +1,5 @@
+import AdminGallery from './AdminGallery'
+
 // Cấu hình tất cả section của admin: sidebar nav + CRUD config
 // icon: path bên trong <svg viewBox="0 0 24 24" stroke="currentColor">
 
@@ -192,6 +194,39 @@ export const sections = [
     icon: <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0 .01M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />,
     columns: [{ key: 'name', label: 'Tên đối tác' }],
     fields: [{ key: 'name', label: 'Tên đối tác', type: 'text', required: true, full: true }],
+  },
+  {
+    id: 'gallery',
+    label: 'Thư viện ảnh',
+    title: 'Thư viện ảnh',
+    component: AdminGallery,
+    icon: <path d="M3 5h18v14H3zM3 15l5-5 4 4 3-3 6 6" />,
+  },
+  {
+    id: 'sectionmeta',
+    label: 'Tiêu đề mục',
+    table: 'section_meta',
+    title: 'Tiêu đề các mục trên trang',
+    pk: 'key',
+    icon: <path d="M4 6h16M4 12h10M4 18h7" />,
+    columns: [
+      { key: 'key', label: 'Mã mục' },
+      { key: 'title', label: 'Tiêu đề' },
+      { key: 'eyebrow', label: 'Eyebrow' },
+    ],
+    fields: [
+      {
+        key: 'key',
+        label: 'Mã mục (key)',
+        type: 'text',
+        required: true,
+        span: 6,
+        hint: 'Không nên đổi — phải khớp với trang (vd: gallery, contact).',
+      },
+      { key: 'eyebrow', label: 'Eyebrow (nhãn nhỏ phía trên)', type: 'text', span: 6 },
+      { key: 'title', label: 'Tiêu đề', type: 'text', full: true },
+      { key: 'description', label: 'Mô tả', type: 'textarea', full: true, rows: 3 },
+    ],
   },
   {
     id: 'brand',

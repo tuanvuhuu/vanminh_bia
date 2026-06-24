@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useFetchTable } from '../hooks/useFetchTable'
 import { accessories, brand } from '../data/content'
-import SectionTitle from './SectionTitle'
+import DBSectionTitle from './DBSectionTitle'
 import Lightbox from './Lightbox'
 
 export default function Products() {
@@ -11,7 +11,8 @@ export default function Products() {
   return (
     <section id="products" className="section bg-bg">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="products"
           eyebrow="Sản phẩm"
           title="Các dòng bàn Vikings"
           desc="5 dòng bàn bi-a cao cấp — khung thép hợp kim / gỗ tự nhiên, đá đen phẳng 99%, trọn bộ phụ kiện đi kèm."

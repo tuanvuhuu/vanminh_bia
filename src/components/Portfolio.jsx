@@ -1,5 +1,5 @@
 import { useFetchTable } from '../hooks/useFetchTable'
-import SectionTitle from './SectionTitle'
+import DBSectionTitle from './DBSectionTitle'
 import TableArt from './TableArt'
 
 export default function Portfolio() {
@@ -8,7 +8,8 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="section bg-bg">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="portfolio"
           eyebrow="Dự án tiêu biểu"
           title="CLB đã setup & bàn giao"
           desc="Hàng trăm câu lạc bộ bi-a trên toàn quốc đã tin tưởng lựa chọn Vikings Billiards."

@@ -1,5 +1,5 @@
 import { useFetchTable } from '../hooks/useFetchTable'
-import SectionTitle from './SectionTitle'
+import DBSectionTitle from './DBSectionTitle'
 
 const icons = {
   design: <path d="M3 3h7v7H3zM14 3h7v4h-7zM14 11h7v10h-7zM3 14h7v7H3z" />,
@@ -16,7 +16,8 @@ export default function Services() {
   return (
     <section id="services" className="section bg-surface">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="services"
           eyebrow="Dịch vụ"
           title="Giải pháp trọn gói cho CLB bi-a"
           desc="Từ tư vấn thiết kế đến thi công, bảo trì — Vikings Billiards đồng hành cùng bạn trên cả chặng đường."

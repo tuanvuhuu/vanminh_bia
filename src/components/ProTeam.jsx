@@ -1,5 +1,5 @@
 import { useFetchTable } from '../hooks/useFetchTable'
-import SectionTitle from './SectionTitle'
+import DBSectionTitle from './DBSectionTitle'
 
 export default function ProTeam() {
   const { data: proTeam, loading } = useFetchTable('pro_team')
@@ -7,7 +7,8 @@ export default function ProTeam() {
   return (
     <section id="proteam" className="section bg-surface">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="proteam"
           eyebrow="Đội ngũ chuyên nghiệp"
           title="VĐV & cố vấn đồng hành"
           desc="Các cơ thủ và huấn luyện viên giàu kinh nghiệm đồng hành cùng thương hiệu, đảm bảo mỗi cây bàn đạt chuẩn thi đấu."

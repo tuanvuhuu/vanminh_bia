@@ -1,5 +1,5 @@
 import { useFetchTable } from '../hooks/useFetchTable'
-import SectionTitle from './SectionTitle'
+import DBSectionTitle from './DBSectionTitle'
 
 export default function Testimonials() {
   const { data: testimonials, loading } = useFetchTable('testimonials', 'created_at', false)
@@ -7,7 +7,8 @@ export default function Testimonials() {
   return (
     <section id="feedback" className="section bg-bg">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="feedback"
           eyebrow="Cảm nhận khách hàng"
           title="Khách hàng nói gì về chúng tôi"
           desc="Sự hài lòng của hàng trăm chủ CLB trên toàn quốc là động lực để Vikings Billiards không ngừng hoàn thiện."

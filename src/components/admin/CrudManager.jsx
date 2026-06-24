@@ -111,7 +111,16 @@ function FieldInput({ field, value, onChange }) {
 }
 
 export default function CrudManager({ config }) {
-  const { table, title, fields, columns, orderBy = 'created_at', ascending = false, singleton } = config
+  const {
+    table,
+    title,
+    fields,
+    columns,
+    orderBy = 'created_at',
+    ascending = false,
+    singleton,
+    pk = 'id',
+  } = config
 
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
@@ -161,7 +170,7 @@ export default function CrudManager({ config }) {
     const f = emptyForm(fields)
     fields.forEach((fl) => (f[fl.key] = deserialize(fl, row[fl.key])))
     setForm(f)
-    setEditingId(row.id)
+    setEditingId(row[pk])
     setModalOpen(true)
   }
 
@@ -182,8 +191,8 @@ export default function CrudManager({ config }) {
         if (err) throw err
         setSavedFlash(true)
         setTimeout(() => setSavedFlash(false), 2000)
-      } else if (editingId) {
-        const { error: err } = await supabase.from(table).update(payload).eq('id', editingId)
+      } else if (editingId != null) {
+        const { error: err } = await supabase.from(table).update(payload).eq(pk, editingId)
         if (err) throw err
         setModalOpen(false)
         fetchRows()
@@ -203,7 +212,7 @@ export default function CrudManager({ config }) {
   const handleDelete = async (id) => {
     if (!confirm('Bạn chắc chắn muốn xóa mục này?')) return
     try {
-      const { error: err } = await supabase.from(table).delete().eq('id', id)
+      const { error: err } = await supabase.from(table).delete().eq(pk, id)
       if (err) throw err
       fetchRows()
     } catch (err) {
@@ -292,7 +301,7 @@ export default function CrudManager({ config }) {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {rows.map((row) => (
-                  <tr key={row.id} className="transition hover:bg-gray-50/70">
+                  <tr key={row[pk]} className="transition hover:bg-gray-50/70">
                     {columns.map((c) => (
                       <td key={c.key} className="px-5 py-3 text-gray-700">
                         {c.render ? c.render(row) : row[c.key]}
@@ -303,7 +312,7 @@ export default function CrudManager({ config }) {
                         <button onClick={() => openEdit(row)} className={ui.btnEditSoft}>
                           Sửa
                         </button>
-                        <button onClick={() => handleDelete(row.id)} className={ui.btnDangerSoft}>
+                        <button onClick={() => handleDelete(row[pk])} className={ui.btnDangerSoft}>
                           Xóa
                         </button>
                       </div>

@@ -1,20 +1,33 @@
-import { useState } from 'react'
-import { gallery } from '../data/content'
-import SectionTitle from './SectionTitle'
+import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabaseClient'
+import { gallery as fallbackGallery } from '../data/content'
+import DBSectionTitle from './DBSectionTitle'
 import Lightbox from './Lightbox'
 
 const STEP = 12
 
 export default function Gallery() {
+  const [images, setImages] = useState(fallbackGallery)
   const [visible, setVisible] = useState(STEP)
   const [start, setStart] = useState(null) // index khi mở lightbox
 
-  const shown = gallery.slice(0, visible)
+  useEffect(() => {
+    supabase
+      .from('galleries')
+      .select('image_url')
+      .order('display_order', { ascending: true })
+      .then(({ data }) => {
+        if (data && data.length) setImages(data.map((d) => d.image_url))
+      })
+  }, [])
+
+  const shown = images.slice(0, visible)
 
   return (
     <section id="gallery" className="section bg-bg">
       <div className="container-x">
-        <SectionTitle
+        <DBSectionTitle
+          sectionKey="gallery"
           eyebrow="Không gian CLB"
           title="Thư viện thiết kế Vikings"
           desc="Bộ sưu tập không gian câu lạc bộ bi-a Vikings — thiết kế nội thất, ánh sáng và setup bàn đẳng cấp."
@@ -44,20 +57,20 @@ export default function Gallery() {
           ))}
         </div>
 
-        {visible < gallery.length && (
+        {visible < images.length && (
           <div className="mt-8 text-center">
             <button
-              onClick={() => setVisible((v) => Math.min(v + STEP, gallery.length))}
+              onClick={() => setVisible((v) => Math.min(v + STEP, images.length))}
               className="btn-ghost"
             >
-              Xem thêm ảnh ({gallery.length - visible})
+              Xem thêm ảnh ({images.length - visible})
             </button>
           </div>
         )}
       </div>
 
       {start !== null && (
-        <Lightbox images={gallery} startIndex={start} onClose={() => setStart(null)} />
+        <Lightbox images={images} startIndex={start} onClose={() => setStart(null)} />
       )}
     </section>
   )
