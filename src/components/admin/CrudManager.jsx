@@ -55,6 +55,19 @@ function emptyForm(fields) {
   return Object.fromEntries(fields.map((f) => [f.key, f.type === 'images' ? [] : '']))
 }
 
+// Lưới 12 cột — span cho mỗi field (literal để Tailwind JIT nhận diện)
+const SPAN = {
+  3: 'sm:col-span-3',
+  4: 'sm:col-span-4',
+  5: 'sm:col-span-5',
+  6: 'sm:col-span-6',
+  7: 'sm:col-span-7',
+  8: 'sm:col-span-8',
+  9: 'sm:col-span-9',
+  12: 'sm:col-span-12',
+}
+const spanClass = (field) => SPAN[field.full ? 12 : field.span || 6]
+
 function FieldInput({ field, value, onChange }) {
   if (field.type === 'image' || field.type === 'images') {
     return <ImageUpload value={value} onChange={onChange} multiple={field.type === 'images'} />
@@ -62,6 +75,19 @@ function FieldInput({ field, value, onChange }) {
   const common = { value, onChange: (e) => onChange(e.target.value), className: ui.input }
   if (field.type === 'textarea' || field.type === 'array' || field.type === 'points') {
     return <textarea {...common} rows={field.rows || 3} placeholder={field.placeholder} />
+  }
+  if (field.type === 'combo') {
+    const listId = `dl-${field.key}`
+    return (
+      <>
+        <input {...common} list={listId} placeholder={field.placeholder || 'Chọn hoặc nhập...'} />
+        <datalist id={listId}>
+          {field.options.map((o) => (
+            <option key={o} value={o} />
+          ))}
+        </datalist>
+      </>
+    )
   }
   if (field.type === 'select') {
     return (
@@ -199,12 +225,13 @@ export default function CrudManager({ config }) {
         {loading ? (
           <p className="text-gray-500">Đang tải...</p>
         ) : (
-          <form onSubmit={handleSave} className={`${ui.card} max-w-3xl p-6`}>
-            <div className="grid gap-5 sm:grid-cols-2">
+          <form onSubmit={handleSave} className={`${ui.card} p-6 lg:p-8`}>
+            <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-12">
               {fields.map((f) => (
-                <div key={f.key} className={f.full ? 'sm:col-span-2' : ''}>
+                <div key={f.key} className={spanClass(f)}>
                   <label className={ui.label}>{f.label}</label>
                   <FieldInput field={f} value={form[f.key]} onChange={(v) => setField(f.key, v)} />
+                  {f.hint && <p className="mt-1 text-xs text-gray-400">{f.hint}</p>}
                 </div>
               ))}
             </div>
@@ -292,7 +319,7 @@ export default function CrudManager({ config }) {
       {/* Modal form */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-gray-900/40 p-4 sm:p-8">
-          <div className={`${ui.card} w-full max-w-4xl`}>
+          <div className={`${ui.card} w-full max-w-5xl`}>
             <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
               <h3 className="text-lg font-bold text-gray-900">
                 {editingId ? 'Chỉnh sửa' : 'Thêm mới'} — {title}
@@ -312,9 +339,9 @@ export default function CrudManager({ config }) {
                 {error && (
                   <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
                 )}
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-12">
                   {fields.map((f) => (
-                    <div key={f.key} className={f.full ? 'sm:col-span-2' : ''}>
+                    <div key={f.key} className={spanClass(f)}>
                       <label className={ui.label}>
                         {f.label}
                         {f.required && <span className="text-red-500"> *</span>}

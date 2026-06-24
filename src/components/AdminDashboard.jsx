@@ -116,7 +116,7 @@ export default function AdminDashboard({ userEmail, onLogout }) {
         </header>
 
         <main className="flex-1 p-4 sm:p-8">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-6xl">
             <CrudManager key={active.id} config={active} />
           </div>
         </main>
