@@ -9,7 +9,7 @@ import Gallery from './components/Gallery'
 import ProTeam from './components/ProTeam'
 import Testimonials from './components/Testimonials'
 import About from './components/About'
-import News from './components/News'
+import Club from './components/Club'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingContact from './components/FloatingContact'
@@ -29,7 +29,7 @@ export default function App() {
         <ProTeam />
         <Testimonials />
         <About />
-        <News />
+        <Club />
         <Contact />
       </main>
       <Footer />
