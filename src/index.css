@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Hệ màu theo theme (light mặc định, .dark ghi đè) ===== */
+@layer base {
+  :root {
+    --c-bg: 255 255 255;
+    --c-surface: 245 246 248;
+    --c-surface2: 235 237 240;
+    --c-line: 224 226 230;
+    --c-content: 23 23 27;
+    --c-muted: 90 94 104;
+    --c-accent-ink: 176 138 0; /* gold đậm cho chữ trên nền sáng */
+  }
+  .dark {
+    --c-bg: 10 10 10;
+    --c-surface: 17 17 17;
+    --c-surface2: 26 26 26;
+    --c-line: 38 38 42;
+    --c-content: 237 237 240;
+    --c-muted: 156 163 175;
+    --c-accent-ink: 255 214 10; /* gold sáng cho chữ trên nền tối */
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg text-content font-sans antialiased transition-colors duration-300;
+  }
+  ::selection {
+    @apply bg-gold text-black;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-16 md:py-24;
+  }
+  .heading {
+    @apply font-display uppercase tracking-wide text-content;
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-gold px-6 py-3 font-semibold text-black transition hover:bg-gold-400 hover:shadow-lg hover:shadow-gold/20;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-accent-ink/50 px-6 py-3 font-semibold text-accent-ink transition hover:bg-gold hover:text-black hover:border-gold;
+  }
+  .card {
+    @apply rounded-xl border border-line bg-surface transition;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--c-bg));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-surface2));
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd60a;
+}
