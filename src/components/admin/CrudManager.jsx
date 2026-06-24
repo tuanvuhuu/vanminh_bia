@@ -1,9 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 import { ui } from './ui'
+import ImageUpload from './ImageUpload'
 
 // form value -> db value
 function serialize(field, value) {
+  if (field.type === 'images') return Array.isArray(value) ? value : []
+  if (field.type === 'image') return value || null
   if (value === '' || value == null) {
     if (field.type === 'array' || field.type === 'points') return []
     if (field.type === 'number') return null
@@ -33,6 +36,10 @@ function serialize(field, value) {
 // db value -> form value
 function deserialize(field, value) {
   switch (field.type) {
+    case 'images':
+      return Array.isArray(value) ? value : []
+    case 'image':
+      return value ?? ''
     case 'array':
       return Array.isArray(value) ? value.join('\n') : ''
     case 'points':
@@ -45,10 +52,13 @@ function deserialize(field, value) {
 }
 
 function emptyForm(fields) {
-  return Object.fromEntries(fields.map((f) => [f.key, '']))
+  return Object.fromEntries(fields.map((f) => [f.key, f.type === 'images' ? [] : '']))
 }
 
 function FieldInput({ field, value, onChange }) {
+  if (field.type === 'image' || field.type === 'images') {
+    return <ImageUpload value={value} onChange={onChange} multiple={field.type === 'images'} />
+  }
   const common = { value, onChange: (e) => onChange(e.target.value), className: ui.input }
   if (field.type === 'textarea' || field.type === 'array' || field.type === 'points') {
     return <textarea {...common} rows={field.rows || 3} placeholder={field.placeholder} />

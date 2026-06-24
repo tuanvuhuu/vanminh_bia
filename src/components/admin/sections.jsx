@@ -3,6 +3,13 @@
 
 const truncate = (s, n = 50) => (s && s.length > n ? s.slice(0, n) + '…' : s || '')
 
+const thumb = (url) =>
+  url ? (
+    <img src={url} alt="" className="h-10 w-14 rounded border border-gray-200 object-cover" />
+  ) : (
+    <span className="text-xs text-gray-300">—</span>
+  )
+
 export const sections = [
   {
     id: 'products',
@@ -11,6 +18,7 @@ export const sections = [
     title: 'Sản phẩm — Bàn bi-a',
     icon: <path d="M3 7h18v10H3zM3 11h18M8 7v10" />,
     columns: [
+      { key: 'image', label: 'Ảnh', render: (r) => thumb(r.image) },
       { key: 'name', label: 'Tên' },
       { key: 'code', label: 'Mã' },
       { key: 'price', label: 'Giá' },
@@ -32,7 +40,14 @@ export const sections = [
         hint: 'Mỗi dòng là một thông số.',
       },
       { key: 'size', label: 'Kích thước', type: 'textarea', full: true, rows: 2 },
-      { key: 'image', label: 'URL ảnh', type: 'text', full: true },
+      { key: 'image', label: 'Ảnh đại diện', type: 'image', full: true },
+      {
+        key: 'gallery',
+        label: 'Bộ sưu tập ảnh',
+        type: 'images',
+        full: true,
+        hint: 'Có thể chọn/kéo-thả nhiều ảnh.',
+      },
     ],
   },
   {
@@ -69,6 +84,7 @@ export const sections = [
     title: 'Dự án — CLB đã setup',
     icon: <path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M9 17h.01" />,
     columns: [
+      { key: 'img', label: 'Ảnh', render: (r) => thumb(r.img) },
       { key: 'name', label: 'Tên CLB' },
       { key: 'location', label: 'Địa điểm' },
       { key: 'tables', label: 'Số bàn' },
@@ -77,7 +93,7 @@ export const sections = [
       { key: 'name', label: 'Tên CLB', type: 'text', required: true },
       { key: 'tables', label: 'Số bàn', type: 'number' },
       { key: 'location', label: 'Địa điểm', type: 'text', full: true },
-      { key: 'img', label: 'URL ảnh', type: 'text', full: true },
+      { key: 'img', label: 'Ảnh', type: 'image', full: true },
     ],
   },
   {
@@ -132,6 +148,7 @@ export const sections = [
     title: 'Bài viết Câu lạc bộ',
     icon: <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5z" />,
     columns: [
+      { key: 'image', label: 'Ảnh', render: (r) => thumb(r.image) },
       { key: 'title', label: 'Tiêu đề' },
       { key: 'cat', label: 'Danh mục' },
       { key: 'date', label: 'Ngày' },
@@ -141,7 +158,7 @@ export const sections = [
       { key: 'slug', label: 'Slug (chon-vai-ban)', type: 'text', required: true },
       { key: 'cat', label: 'Danh mục', type: 'text' },
       { key: 'date', label: 'Ngày (12/06/2026)', type: 'text' },
-      { key: 'image', label: 'URL ảnh', type: 'text', full: true },
+      { key: 'image', label: 'Ảnh bài viết', type: 'image', full: true },
       { key: 'intro', label: 'Đoạn mở đầu', type: 'textarea', full: true, rows: 3 },
       {
         key: 'points',
