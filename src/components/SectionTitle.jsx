@@ -1,6 +1,6 @@
 export default function SectionTitle({ eyebrow, title, desc, center = true }) {
   return (
-    <div className={`mb-12 ${center ? 'mx-auto max-w-2xl text-center' : ''}`}>
+    <div className={`mb-12 reveal ${center ? 'mx-auto max-w-2xl text-center' : ''}`}>
       {eyebrow && (
         <span className="inline-block text-sm font-semibold uppercase tracking-widest text-accent-ink">
           {eyebrow}

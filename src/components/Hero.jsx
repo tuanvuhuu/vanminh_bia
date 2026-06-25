@@ -69,7 +69,7 @@ export default function Hero({ brand: propBrand }) {
 
       {/* Dải CTA + slogan */}
       <div className="bg-gradient-to-b from-surface to-bg dark:from-ink-900 dark:to-bg">
-        <div className="container-x py-8 text-center">
+        <div className="container-x py-8 text-center reveal">
           <h1 className="heading text-2xl font-bold text-content dark:text-white sm:text-3xl md:text-4xl">
             {brand.name} <span className="text-gold">— {brand.slogan}</span>
           </h1>
@@ -87,7 +87,7 @@ export default function Hero({ brand: propBrand }) {
 
       {/* Thống kê */}
       <div className="border-y border-line bg-surface">
-        <dl className="container-x grid grid-cols-2 gap-6 py-8 sm:grid-cols-4">
+        <dl className="container-x grid grid-cols-2 gap-6 py-8 sm:grid-cols-4 reveal">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <dt className="font-display text-3xl font-bold text-accent-ink md:text-4xl">{s.value}</dt>

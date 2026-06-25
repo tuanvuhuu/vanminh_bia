@@ -120,7 +120,8 @@ export default function Gallery() {
               <button
                 key={src}
                 onClick={() => setLightboxIndex(i)}
-                className={`group relative overflow-hidden rounded-xl border border-line bg-ink-900 shadow-sm hover:border-gold/50 transition-all duration-300 ${spanClass}`}
+                style={{ transitionDelay: `${(i % 4) * 100}ms` }}
+                className={`group relative overflow-hidden rounded-xl border border-line bg-ink-900 shadow-sm hover:border-gold/50 transition-all duration-300 reveal ${spanClass}`}
                 aria-label={`Xem ảnh ${meta.title}`}
               >
                 <img

@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Partners from './components/Partners'
 import Products from './components/Products'
+import InteractiveStudio from './components/InteractiveStudio'
 import Services from './components/Services'
 import Portfolio from './components/Portfolio'
 import Gallery from './components/Gallery'
@@ -35,6 +36,42 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
 
+  useEffect(() => {
+    if (showAdmin) return
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed')
+          }
+        })
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    )
+
+    const updateObservation = () => {
+      document.querySelectorAll('.reveal:not(.revealed)').forEach((el) => {
+        io.observe(el)
+      })
+    }
+
+    // Khởi chạy quan sát ban đầu
+    updateObservation()
+
+    // Sử dụng MutationObserver để tự động quan sát các phần tử render động (Supabase load)
+    const mo = new MutationObserver(updateObservation)
+    mo.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      io.disconnect()
+      mo.disconnect()
+    }
+  }, [showAdmin])
+
   if (showAdmin) {
     return <Admin />
   }
@@ -46,6 +83,7 @@ export default function App() {
         <Hero brand={brand} />
         <Partners />
         <Products brand={brand} />
+        <InteractiveStudio brand={brand} />
         <Services />
         <Portfolio />
         <Gallery />

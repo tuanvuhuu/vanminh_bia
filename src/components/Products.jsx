@@ -9,6 +9,7 @@ export default function Products({ brand: propBrand }) {
   const brand = propBrand || staticBrand
   const [box, setBox] = useState(null) // { images, startIndex }
   const [orderingProduct, setOrderingProduct] = useState(null)
+  const [showComparison, setShowComparison] = useState(false)
   const { data: products, loading } = useFetchTable('products')
 
   return (
@@ -33,12 +34,13 @@ export default function Products({ brand: propBrand }) {
               if (!aHot && bHot) return 1
               return 0
             })
-            .map((p) => {
+            .map((p, idx) => {
               const gallery = p.gallery || [p.image]
               return (
               <article
                 key={p.code}
-                className="group card flex flex-col overflow-hidden hover:-translate-y-1 hover:border-gold/60 hover:shadow-xl hover:shadow-gold/10"
+                style={{ transitionDelay: `${(idx % 3) * 100}ms` }}
+                className="group card flex flex-col overflow-hidden hover:-translate-y-1 hover:border-gold/60 hover:shadow-xl hover:shadow-gold/10 reveal"
               >
                 <button
                   onClick={() => setBox({ images: gallery, startIndex: 0 })}
@@ -119,6 +121,76 @@ export default function Products({ brand: propBrand }) {
           </article>
         </div>
         )}
+
+      {/* Toggle Button for Comparison Matrix */}
+      <div className="mt-12 text-center">
+        <button
+          onClick={() => setShowComparison(!showComparison)}
+          className="inline-flex items-center gap-2 rounded-full border border-gold/70 hover:border-gold px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-accent-ink dark:text-gold hover:bg-gold hover:text-black transition-all duration-300"
+        >
+          {showComparison ? '▲ Thu gọn so sánh' : '▼ So sánh chi tiết các dòng bàn'}
+        </button>
+      </div>
+
+      {showComparison && (
+        <div className="mt-8 overflow-x-auto rounded-xl border border-line bg-surface p-4 md:p-6 animate-chatbot">
+          <table className="w-full text-left text-xs border-collapse min-w-[700px]">
+            <thead>
+              <tr className="border-b border-line">
+                <th className="p-3.5 font-bold text-content uppercase tracking-wider bg-surface-2 dark:bg-ink-950 w-1/5 rounded-tl-lg">Tiêu chí</th>
+                <th className="p-3.5 font-bold text-accent-ink dark:text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5">Vikings Hero</th>
+                <th className="p-3.5 font-bold text-accent-ink dark:text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5">Hunter Royal</th>
+                <th className="p-3.5 font-bold text-accent-ink dark:text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5">Vikings Rise</th>
+                <th className="p-3.5 font-bold text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5 rounded-tr-lg">Vikings Monster (VK25)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-line hover:bg-surface-2/40">
+                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Mặt đá (Slab)</td>
+                <td className="p-3.5 text-muted text-center">Đá tự nhiên 3 tấm (dày 25mm)</td>
+                <td className="p-3.5 text-muted text-center">Đá xanh tự nhiên nhập khẩu (dày 25mm)</td>
+                <td className="p-3.5 text-muted text-center">Đá bùn đen cao cấp (dày 25mm, phẳng 99%)</td>
+                <td className="p-3.5 text-content font-semibold text-center">Đá đen tự nhiên (25mm, siêu phẳng 99.9%)</td>
+              </tr>
+              <tr className="border-b border-line hover:bg-surface-2/40">
+                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Khung gầm (Underframe)</td>
+                <td className="p-3.5 text-muted text-center">Gỗ MDF chống ẩm tăng cường</td>
+                <td className="p-3.5 text-muted text-center">Gỗ tự nhiên khối chống cong</td>
+                <td className="p-3.5 text-muted text-center">Khung thép H-beam chống rung</td>
+                <td className="p-3.5 text-content font-semibold text-center">Khung thép H-beam đúc nguyên khối chống rung 100%</td>
+              </tr>
+              <tr className="border-b border-line hover:bg-surface-2/40">
+                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Băng cao su (Cushion)</td>
+                <td className="p-3.5 text-muted text-center">Băng cao cấp Đài Loan đàn hồi chuẩn</td>
+                <td className="p-3.5 text-muted text-center">Băng Premier / K55 nảy cao</td>
+                <td className="p-3.5 text-muted text-center">Băng K55 chuẩn thi đấu quốc tế</td>
+                <td className="p-3.5 text-content font-semibold text-center">Băng Uylin K55 nhập khẩu chính hãng</td>
+              </tr>
+              <tr className="border-b border-line hover:bg-surface-2/40">
+                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Hệ thống sưởi (Heating)</td>
+                <td className="p-3.5 text-muted text-center">Không hỗ trợ</td>
+                <td className="p-3.5 text-muted text-center">Không hỗ trợ</td>
+                <td className="p-3.5 text-muted text-center">Sưởi điện tử tự động ngắt</td>
+                <td className="p-3.5 text-content font-semibold text-center">Sưởi nhiệt đa vùng độc lập cảm biến</td>
+              </tr>
+              <tr className="border-b border-line hover:bg-surface-2/40">
+                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Bóng đi kèm (Balls)</td>
+                <td className="p-3.5 text-muted text-center">Dyna Titanium / Joss</td>
+                <td className="p-3.5 text-muted text-center">Dyna Titanium / CPBA</td>
+                <td className="p-3.5 text-muted text-center">Aramith Premium / Dyna Pro</td>
+                <td className="p-3.5 text-content font-semibold text-center">Aramith Pro-Cup TV (Bỉ) chuyên nghiệp</td>
+              </tr>
+              <tr className="hover:bg-surface-2/40">
+                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20 rounded-bl-lg">Phù hợp nhu cầu</td>
+                <td className="p-3.5 text-muted text-center">CLB học sinh, hồi vốn nhanh</td>
+                <td className="p-3.5 text-muted text-center">CLB phong trào chất lượng tầm trung</td>
+                <td className="p-3.5 text-muted text-center">CLB chuyên nghiệp cao cấp, khách VIP</td>
+                <td className="p-3.5 text-content font-semibold text-center rounded-br-lg">CLB siêu sang, giải đấu, cơ thủ Pro</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
 
         {/* Phụ kiện */}
         <div className="mt-16">

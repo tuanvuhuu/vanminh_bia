@@ -30,7 +30,8 @@ export default function Services() {
           {services.map((s, i) => (
             <div
               key={s.title}
-              className="group relative overflow-hidden rounded-xl border border-line bg-bg p-7 transition hover:border-gold/60"
+              style={{ transitionDelay: `${i * 100}ms` }}
+              className="group relative overflow-hidden rounded-xl border border-line bg-bg p-7 transition hover:border-gold/60 reveal"
             >
               <span className="absolute -right-3 -top-4 font-display text-7xl font-bold text-content/5">
                 0{i + 1}
