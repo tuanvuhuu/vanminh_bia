@@ -5,7 +5,7 @@ export default function OrderModal({ product, brand, onClose }) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState('')
-  const [notes, setNotes] = useState('')
+  const [notes, setNotes] = useState(product.customNotes || '')
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
 
@@ -44,8 +44,8 @@ export default function OrderModal({ product, brand, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-fade-in">
-      <div className="relative w-full max-w-3xl bg-bg dark:bg-ink-900 border border-line rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-scale-up max-h-[92vh] md:max-h-none overflow-y-auto">
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-black/75 backdrop-blur-md p-4 flex items-start md:items-center justify-center animate-fade-in">
+      <div className="relative w-full max-w-3xl bg-bg dark:bg-ink-900 border border-line rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-scale-up my-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -61,18 +61,40 @@ export default function OrderModal({ product, brand, onClose }) {
         {!success ? (
           <>
             {/* Left side: Product Info */}
-            <div className="w-full md:w-5/12 bg-surface-2 dark:bg-ink-950 p-4 md:p-6 flex flex-row md:flex-col justify-between items-center md:items-stretch border-b md:border-b-0 md:border-r border-line gap-4 md:gap-0 flex-none">
-              <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-0 flex-1 md:flex-none">
-                <div className="h-14 w-20 md:h-auto md:w-full md:aspect-[16/10] rounded-lg overflow-hidden border border-line bg-black flex-none">
+            <div className="w-full md:w-5/12 bg-surface-2 dark:bg-ink-950 p-4 md:p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-line gap-4 md:gap-0 flex-none">
+              <div className="flex flex-row md:flex-col items-start gap-4 md:gap-0">
+                <div className="h-16 w-24 md:h-auto md:w-full md:aspect-[16/10] rounded-lg overflow-hidden border border-line bg-black flex-none">
                   <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
                 </div>
-                <div className="flex-1 md:mt-4">
+                <div className="flex-1 md:mt-4 w-full">
                   <span className="hidden md:inline-block rounded-full bg-gold/15 border border-gold/30 px-3 py-1 text-[11px] font-bold text-accent-ink dark:text-gold uppercase tracking-wider mb-3">
                     Sản phẩm lựa chọn
                   </span>
                   <h3 className="font-display text-sm md:text-xl font-bold uppercase text-content mb-0.5 md:mb-1">{product.name}</h3>
-                  <p className="text-[10px] md:text-xs text-muted md:mb-4">Mã: <span className="font-semibold text-content">{product.code}</span></p>
+                  <p className="text-[10px] md:text-xs text-muted mb-2">Mã: <span className="font-semibold text-content">{product.code}</span></p>
                   
+                  {/* Custom Configuration Specs Box */}
+                  {product.customNotes && (
+                    <div className="p-2.5 bg-gold/10 dark:bg-gold/5 border border-gold/30 dark:border-gold/20 rounded-lg text-[11px] text-content space-y-1 text-left w-full mb-3">
+                      <span className="font-bold text-accent-ink dark:text-gold uppercase tracking-wider block text-[9px] mb-1">
+                        Cấu hình lựa chọn:
+                      </span>
+                      {product.customNotes.includes('Vải nỉ:') ? (
+                        <>
+                          <p>• <b>Nỉ:</b> {product.customNotes.split('Vải nỉ: ')[1]?.split(', ')[0]}</p>
+                          <p>• <b>Băng:</b> {product.customNotes.split('Thành băng: ')[1]?.split('.')[0]}</p>
+                        </>
+                      ) : product.customNotes.includes('[Dự toán') ? (
+                        <>
+                          <p>• <b>Diện tích:</b> {product.customNotes.split('Diện tích: ')[1]?.split(', ')[0]}</p>
+                          <p>• <b>Quy mô:</b> {product.customNotes.split('Số bàn: ')[1]?.split(', ')[0]}</p>
+                        </>
+                      ) : (
+                        <p>{product.customNotes}</p>
+                      )}
+                    </div>
+                  )}
+
                   <div className="hidden md:block space-y-2">
                     <p className="text-xs text-muted flex items-center gap-2">
                       <span className="text-gold">✓</span> {product.frame}
@@ -86,8 +108,8 @@ export default function OrderModal({ product, brand, onClose }) {
                 </div>
               </div>
 
-              <div className="flex-none text-right md:text-left md:mt-6 md:pt-4 md:border-t border-line">
-                <span className="hidden md:block text-xs text-muted mb-0.5">Giá niêm yết:</span>
+              <div className="flex justify-between items-center md:items-start md:block md:mt-6 md:pt-4 md:border-t border-line">
+                <span className="text-xs text-muted md:mb-0.5">Giá tạm tính:</span>
                 <span className="font-display text-base md:text-2xl font-bold text-accent-ink dark:text-gold">{product.price}</span>
               </div>
             </div>
