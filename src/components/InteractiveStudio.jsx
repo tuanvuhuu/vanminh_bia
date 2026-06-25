@@ -30,10 +30,20 @@ export default function InteractiveStudio({ brand }) {
   // Calculator state
   const [area, setArea] = useState(150)
   const [segment, setSegment] = useState('mid') // 'budget' | 'mid' | 'vip'
+  const [manualTableCount, setManualTableCount] = useState(null) // null = tự tính từ diện tích
 
   // Tính toán dự toán CLB
   const tableAreaRequirement = 28 // 28m2/ban
-  const tableCount = Math.max(1, Math.floor(area / tableAreaRequirement))
+  const autoTableCount = Math.max(1, Math.floor(area / tableAreaRequirement))
+  const tableCount = manualTableCount ?? autoTableCount
+
+  const handleAreaChange = (val) => {
+    setArea(parseInt(val))
+    setManualTableCount(null) // reset về auto khi đổi diện tích
+  }
+
+  const incrementTable = () => setManualTableCount(tableCount + 1)
+  const decrementTable = () => setManualTableCount(Math.max(1, tableCount - 1))
   
   const segmentMeta = {
     budget: {
@@ -263,7 +273,7 @@ export default function InteractiveStudio({ brand }) {
                   max="1000"
                   step="10"
                   value={area}
-                  onChange={(e) => setArea(parseInt(e.target.value))}
+                  onChange={(e) => handleAreaChange(e.target.value)}
                   className="w-full accent-gold bg-line h-1.5 rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex justify-between text-[10px] text-muted mt-1">
@@ -319,11 +329,35 @@ export default function InteractiveStudio({ brand }) {
                 </h3>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                  <div className="bg-surface-2 dark:bg-ink-950 p-3.5 rounded-xl border border-line text-center">
-                    <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Số bàn tối đa</span>
-                    <p className="text-xl md:text-2xl font-bold text-accent-ink dark:text-gold mt-1">
-                      {tableCount} <span className="text-xs text-content font-medium">bàn</span>
-                    </p>
+                  <div className={`p-3.5 rounded-xl border text-center transition-colors ${manualTableCount !== null ? 'border-gold bg-gold/5' : 'bg-surface-2 dark:bg-ink-950 border-line'}`}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Số bàn</span>
+                      {manualTableCount !== null ? (
+                        <button
+                          onClick={() => setManualTableCount(null)}
+                          title="Về tự động"
+                          className="text-[9px] text-gold bg-gold/15 hover:bg-gold/30 px-1.5 py-0.5 rounded-full transition-colors"
+                        >
+                          Tự chỉnh ✕
+                        </button>
+                      ) : (
+                        <span className="text-[9px] text-muted/60">tự tính</span>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={decrementTable}
+                        className="w-7 h-7 rounded-full border border-line hover:border-gold hover:text-gold flex items-center justify-center text-base font-bold text-content transition-all"
+                      >−</button>
+                      <span className="text-xl md:text-2xl font-bold text-accent-ink dark:text-gold min-w-[2.5rem] text-center tabular-nums">
+                        {tableCount}
+                      </span>
+                      <button
+                        onClick={incrementTable}
+                        className="w-7 h-7 rounded-full border border-line hover:border-gold hover:text-gold flex items-center justify-center text-base font-bold text-content transition-all"
+                      >+</button>
+                    </div>
+                    <span className="text-[10px] text-muted">bàn</span>
                   </div>
                   <div className="bg-surface-2 dark:bg-ink-950 p-3.5 rounded-xl border border-line text-center">
                     <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Dòng bàn khuyên dùng</span>
