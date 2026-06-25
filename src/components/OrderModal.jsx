@@ -45,11 +45,11 @@ export default function OrderModal({ product, brand, onClose }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-fade-in">
-      <div className="relative w-full max-w-3xl bg-bg dark:bg-ink-900 border border-line rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-scale-up">
+      <div className="relative w-full max-w-3xl bg-bg dark:bg-ink-900 border border-line rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-scale-up max-h-[92vh] md:max-h-none overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 z-55 text-muted hover:text-content transition-colors p-1 bg-surface-2 dark:bg-ink-950 rounded-full border border-line"
+          className="absolute right-4 top-4 z-50 text-muted hover:text-content transition-colors p-1 bg-surface-2 dark:bg-ink-950 rounded-full border border-line"
           aria-label="Đóng"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -61,103 +61,105 @@ export default function OrderModal({ product, brand, onClose }) {
         {!success ? (
           <>
             {/* Left side: Product Info */}
-            <div className="w-full md:w-5/12 bg-surface-2 dark:bg-ink-950 p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-line">
-              <div>
-                <span className="inline-block rounded-full bg-gold/15 border border-gold/30 px-3 py-1 text-[11px] font-bold text-accent-ink dark:text-gold uppercase tracking-wider mb-3">
-                  Sản phẩm lựa chọn
-                </span>
-                <div className="aspect-[16/10] w-full rounded-lg overflow-hidden border border-line bg-black mb-4">
+            <div className="w-full md:w-5/12 bg-surface-2 dark:bg-ink-950 p-4 md:p-6 flex flex-row md:flex-col justify-between items-center md:items-stretch border-b md:border-b-0 md:border-r border-line gap-4 md:gap-0 flex-none">
+              <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-0 flex-1 md:flex-none">
+                <div className="h-14 w-20 md:h-auto md:w-full md:aspect-[16/10] rounded-lg overflow-hidden border border-line bg-black flex-none">
                   <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
                 </div>
-                <h3 className="font-display text-xl font-bold uppercase text-content mb-1">{product.name}</h3>
-                <p className="text-xs text-muted mb-4">Mã sản phẩm: <span className="font-semibold text-content">{product.code}</span></p>
-                
-                <div className="space-y-2">
-                  <p className="text-xs text-muted flex items-center gap-2">
-                    <span className="text-gold">✓</span> {product.frame}
-                  </p>
-                  {product.specs && product.specs.slice(0, 3).map((spec, i) => (
-                    <p key={i} className="text-xs text-muted flex items-center gap-2">
-                      <span className="text-gold">✓</span> {spec}
+                <div className="flex-1 md:mt-4">
+                  <span className="hidden md:inline-block rounded-full bg-gold/15 border border-gold/30 px-3 py-1 text-[11px] font-bold text-accent-ink dark:text-gold uppercase tracking-wider mb-3">
+                    Sản phẩm lựa chọn
+                  </span>
+                  <h3 className="font-display text-sm md:text-xl font-bold uppercase text-content mb-0.5 md:mb-1">{product.name}</h3>
+                  <p className="text-[10px] md:text-xs text-muted md:mb-4">Mã: <span className="font-semibold text-content">{product.code}</span></p>
+                  
+                  <div className="hidden md:block space-y-2">
+                    <p className="text-xs text-muted flex items-center gap-2">
+                      <span className="text-gold">✓</span> {product.frame}
                     </p>
-                  ))}
+                    {product.specs && product.specs.slice(0, 3).map((spec, i) => (
+                      <p key={i} className="text-xs text-muted flex items-center gap-2">
+                        <span className="text-gold">✓</span> {spec}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-line">
-                <span className="block text-xs text-muted mb-0.5">Giá niêm yết:</span>
-                <span className="font-display text-2xl font-bold text-accent-ink dark:text-gold">{product.price}</span>
+              <div className="flex-none text-right md:text-left md:mt-6 md:pt-4 md:border-t border-line">
+                <span className="hidden md:block text-xs text-muted mb-0.5">Giá niêm yết:</span>
+                <span className="font-display text-base md:text-2xl font-bold text-accent-ink dark:text-gold">{product.price}</span>
               </div>
             </div>
 
             {/* Right side: Form */}
-            <form onSubmit={handleSubmit} className="w-full md:w-7/12 p-6 flex flex-col justify-between">
+            <form onSubmit={handleSubmit} className="w-full md:w-7/12 p-4 md:p-6 flex flex-col justify-between flex-1">
               <div>
-                <h2 className="font-display text-xl font-bold text-content mb-1">Thông tin đặt mua</h2>
-                <p className="text-xs text-muted mb-6">Vui lòng điền thông tin để chúng tôi liên hệ tư vấn và xác nhận đơn hàng.</p>
+                <h2 className="font-display text-base md:text-xl font-bold text-content mb-0.5 md:mb-1">Thông tin đặt mua</h2>
+                <p className="text-[11px] md:text-xs text-muted mb-4 md:mb-6">Vui lòng điền thông tin để chúng tôi liên hệ tư vấn và xác nhận đơn hàng.</p>
 
-                <div className="space-y-4">
+                <div className="space-y-3 md:space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-content mb-1.5 uppercase tracking-wider">Họ và Tên <span className="text-red-500">*</span></label>
+                    <label className="block text-[10px] md:text-xs font-semibold text-content mb-1 md:mb-1.5 uppercase tracking-wider">Họ và Tên <span className="text-red-500">*</span></label>
                     <input
                       type="text"
                       required
                       placeholder="Nguyễn Văn A"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full rounded-lg border border-line bg-surface px-4 py-2.5 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                      className="w-full rounded-lg border border-line bg-surface px-3 py-2 md:px-4 md:py-2.5 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-content mb-1.5 uppercase tracking-wider">Số điện thoại <span className="text-red-500">*</span></label>
+                    <label className="block text-[10px] md:text-xs font-semibold text-content mb-1 md:mb-1.5 uppercase tracking-wider">Số điện thoại <span className="text-red-500">*</span></label>
                     <input
                       type="tel"
                       required
                       placeholder="09xxxxxxxx"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full rounded-lg border border-line bg-surface px-4 py-2.5 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                      className="w-full rounded-lg border border-line bg-surface px-3 py-2 md:px-4 md:py-2.5 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-content mb-1.5 uppercase tracking-wider">Tỉnh / Thành phố <span className="text-red-500">*</span></label>
+                    <label className="block text-[10px] md:text-xs font-semibold text-content mb-1 md:mb-1.5 uppercase tracking-wider">Tỉnh / Thành phố <span className="text-red-500">*</span></label>
                     <input
                       type="text"
                       required
                       placeholder="Ví dụ: Hà Nội, Đà Nẵng, TP. HCM"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="w-full rounded-lg border border-line bg-surface px-4 py-2.5 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                      className="w-full rounded-lg border border-line bg-surface px-3 py-2 md:px-4 md:py-2.5 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-content mb-1.5 uppercase tracking-wider">Yêu cầu thêm (nếu có)</label>
+                    <label className="block text-[10px] md:text-xs font-semibold text-content mb-1 md:mb-1.5 uppercase tracking-wider">Yêu cầu thêm (nếu có)</label>
                     <textarea
                       placeholder="Ví dụ: Cần tư vấn thêm combo phụ kiện, hẹn giờ giao hàng..."
                       rows={2}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      className="w-full rounded-lg border border-line bg-surface px-4 py-2 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold resize-none"
+                      className="w-full rounded-lg border border-line bg-surface px-3 py-1.5 md:px-4 md:py-2 text-sm text-content placeholder-muted focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold resize-none"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 flex gap-3">
+              <div className="mt-5 md:mt-6 flex gap-3">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="w-1/3 rounded-lg border border-line bg-surface py-3 text-sm font-semibold text-content hover:bg-surface-2 transition-colors"
+                  className="w-1/3 rounded-lg border border-line bg-surface py-2.5 md:py-3 text-sm font-semibold text-content hover:bg-surface-2 transition-colors"
                 >
                   Hủy
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-2/3 rounded-lg bg-gold py-3 text-sm font-semibold text-black hover:bg-gold-600 transition-colors shadow-lg shadow-gold/25 flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-2/3 rounded-lg bg-gold py-2.5 md:py-3 text-sm font-semibold text-black hover:bg-gold-600 transition-colors shadow-lg shadow-gold/25 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {submitting ? (
                     <>
@@ -176,28 +178,28 @@ export default function OrderModal({ product, brand, onClose }) {
           </>
         ) : (
           /* Success Screen */
-          <div className="w-full p-8 md:p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
-            <div className="w-16 h-16 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center text-green-500 mb-6 animate-bounce">
-              <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <div className="w-full p-6 md:p-12 text-center flex flex-col items-center justify-center min-h-[320px] md:min-h-[400px]">
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center text-green-500 mb-4 md:mb-6 animate-bounce">
+              <svg className="h-6 w-6 md:h-8 md:w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
 
-            <h2 className="font-display text-2xl font-bold text-content mb-3 uppercase tracking-wide">Đặt mua thành công!</h2>
-            <p className="text-sm text-muted max-w-md mb-8">
+            <h2 className="font-display text-xl md:text-2xl font-bold text-content mb-2 md:mb-3 uppercase tracking-wide">Đặt mua thành công!</h2>
+            <p className="text-xs md:text-sm text-muted max-w-md mb-6 md:mb-8">
               Cảm ơn bạn đã tin tưởng lựa chọn **Vikings Billiards**. Chúng tôi đã ghi nhận đơn đặt hàng bàn **{product.name}** và sẽ liên hệ xác nhận qua điện thoại trong vòng 15 phút.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
               <button
                 onClick={handleZaloChat}
-                className="flex-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white py-3 text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+                className="flex-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white py-2.5 md:py-3 text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
               >
                 💬 Chat Zalo để được giao ngay
               </button>
               <button
                 onClick={onClose}
-                className="flex-1 rounded-lg border border-line bg-surface hover:bg-surface-2 text-content py-3 text-sm font-semibold transition-colors"
+                className="flex-1 rounded-lg border border-line bg-surface hover:bg-surface-2 text-content py-2.5 md:py-3 text-sm font-semibold transition-colors"
               >
                 Quay lại trang chủ
               </button>
