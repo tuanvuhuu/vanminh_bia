@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import DBSectionTitle from './DBSectionTitle'
 import OrderModal from './OrderModal'
+import BilliardTable3D from './BilliardTable3D'
 
 const CLOTHS = [
   { id: 'blue', label: 'Xanh Royal (CPBA Blue)', hex: '#0f4c81', shadow: '#0b3861', light: '#1b5d9b' },
@@ -138,236 +139,21 @@ export default function InteractiveStudio({ brand }) {
         {activeTab === 'design' ? (
           /* DESIGN CUSTOMIZER */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Interactive SVG Preview */}
-            <div className="lg:col-span-7 flex justify-center bg-surface-2 dark:bg-ink-950/40 p-6 md:p-10 rounded-2xl border border-line relative overflow-hidden group">
-              <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[10px] text-white font-bold uppercase tracking-wider">
-                Bản vẽ 3D trực quan
+            {/* Interactive 3D Preview */}
+            <div className="lg:col-span-7 rounded-2xl border border-line relative overflow-hidden" style={{ height: '420px' }}>
+              {/* Labels */}
+              <div className="absolute top-4 left-4 z-10 bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[10px] text-white font-bold uppercase tracking-wider pointer-events-none">
+                Mô hình 3D trực quan
               </div>
-              
-              <svg viewBox="0 0 600 350" className="w-full max-w-lg h-auto transition-transform duration-500 group-hover:scale-[1.02]">
-                <defs>
-                  {/* Floor Shadow Gradient */}
-                  <radialGradient id="floor-shadow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="rgba(0,0,0,0.5)" />
-                    <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-                  </radialGradient>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-black/55 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-[10px] text-white/70 flex items-center gap-1.5 pointer-events-none">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                Kéo để xoay · Cuộn để zoom
+              </div>
 
-                  {/* Billiard Table Cloth Gradients */}
-                  <linearGradient id="cloth-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor={selectedCloth.shadow} />
-                    <stop offset="60%" stopColor={selectedCloth.hex} />
-                    <stop offset="100%" stopColor={selectedCloth.light} />
-                  </linearGradient>
-
-                  {/* Wooden Rail Top Gradient */}
-                  <linearGradient id="rail-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor={selectedRail.hex} />
-                    <stop offset="30%" stopColor={selectedRail.under} />
-                    <stop offset="70%" stopColor={selectedRail.hex} />
-                    <stop offset="100%" stopColor={selectedRail.under} />
-                  </linearGradient>
-
-                  {/* Wooden Rail Shadowed Face Gradient */}
-                  <linearGradient id="rail-dark-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor={selectedRail.under} />
-                    <stop offset="100%" stopColor="#111113" />
-                  </linearGradient>
-
-                  {/* Polished Metallic Corner Plates */}
-                  {selectedRail.id === 'gold' ? (
-                    <linearGradient id="metal-grad" x1="0%" y1="0%" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#fef08a" />
-                      <stop offset="30%" stopColor="#ca8a04" />
-                      <stop offset="70%" stopColor="#fef08a" />
-                      <stop offset="100%" stopColor="#854d0e" />
-                    </linearGradient>
-                  ) : (
-                    <linearGradient id="metal-grad" x1="0%" y1="0%" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#ffffff" />
-                      <stop offset="30%" stopColor="#a1a1aa" />
-                      <stop offset="70%" stopColor="#ffffff" />
-                      <stop offset="100%" stopColor="#3f3f46" />
-                    </linearGradient>
-                  )}
-
-                  {/* 3D Cue Ball Shading */}
-                  <radialGradient id="cue-ball-grad" cx="30%" cy="30%" r="70%">
-                    <stop offset="0%" stopColor="#ffffff" />
-                    <stop offset="50%" stopColor="#e4e4e7" />
-                    <stop offset="100%" stopColor="#a1a1aa" />
-                  </radialGradient>
-
-                  {/* 3D Red Ball Shading */}
-                  <radialGradient id="red-ball-grad" cx="30%" cy="30%" r="70%">
-                    <stop offset="0%" stopColor="#fca5a5" />
-                    <stop offset="50%" stopColor="#dc2626" />
-                    <stop offset="100%" stopColor="#7f1d1d" />
-                  </radialGradient>
-
-                  {/* 3D Yellow Ball Shading */}
-                  <radialGradient id="yellow-ball-grad" cx="30%" cy="30%" r="70%">
-                    <stop offset="0%" stopColor="#fef08a" />
-                    <stop offset="50%" stopColor="#ca8a04" />
-                    <stop offset="100%" stopColor="#713f12" />
-                  </radialGradient>
-
-                  {/* 3D Blue Ball Shading */}
-                  <radialGradient id="blue-ball-grad" cx="30%" cy="30%" r="70%">
-                    <stop offset="0%" stopColor="#93c5fd" />
-                    <stop offset="50%" stopColor="#2563eb" />
-                    <stop offset="100%" stopColor="#1e3a8a" />
-                  </radialGradient>
-
-                  {/* Cue Stick Shadow Filter */}
-                  <filter id="stick-shadow" x="-10%" y="-10%" width="120%" height="120%">
-                    <feDropShadow dx="-2" dy="4" stdDeviation="3" floodOpacity="0.35" />
-                  </filter>
-
-                  {/* Suspended LED Canopy Light Gradients */}
-                  <linearGradient id="led-fixture-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#3f3f46" />
-                    <stop offset="60%" stopColor="#09090b" />
-                    <stop offset="100%" stopColor="#27272a" />
-                  </linearGradient>
-
-                  <linearGradient id="led-light-cone" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(255,255,255,0.4)" />
-                    <stop offset="35%" stopColor="rgba(255,255,255,0.15)" />
-                    <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-                  </linearGradient>
-
-                  <linearGradient id="glossy-sheen" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-                    <stop offset="40%" stopColor="#ffffff" stopOpacity="0.8" />
-                    <stop offset="50%" stopColor="#ffffff" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-                  </linearGradient>
-
-                  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="2.5" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                </defs>
-
-                {/* --- SUSPENDED LED CANOPY LIGHT (Đèn LED vòm treo chuyên nghiệp) --- */}
-                {/* Thin Steel Hanging Cables */}
-                <line x1="220" y1="15" x2="220" y2="70" stroke="#71717a" strokeWidth="1" />
-                <line x1="380" y1="15" x2="380" y2="70" stroke="#71717a" strokeWidth="1" />
-
-                {/* LED Cone of Light (Chùm sáng phát ra) */}
-                <polygon points="176,82 424,82 490,225 110,225" fill="url(#led-light-cone)" opacity="0.4" style={{ pointerEvents: 'none' }} />
-
-                {/* LED Fixture Frame (Thân đèn LED vòm) */}
-                <polygon points="180,68 420,68 436,84 164,84" fill="url(#led-fixture-grad)" stroke="#18181b" strokeWidth="0.8" />
-                {/* Glowing LED Strip (Dải bóng đèn LED siêu sáng) */}
-                <polygon points="182,81 418,81 426,84 174,84" fill="#ffffff" filter="url(#glow)" />
-
-                {/* --- BILLIARD TABLE MODEL --- */}
-                {/* Table shadow */}
-                <ellipse cx="300" cy="270" rx="245" ry="42" fill="url(#floor-shadow)" />
-
-                {/* Legs Back (with depth) */}
-                {/* Leg Left-Back */}
-                <path d="M130,215 L130,280 L148,280 L148,215 Z" fill="#18181b" />
-                <path d="M148,215 L148,280 L156,270 L156,215 Z" fill="#09090b" />
-
-                {/* Leg Right-Back */}
-                <path d="M450,215 L450,280 L468,280 L468,215 Z" fill="#18181b" />
-                <path d="M468,215 L468,280 L476,270 L476,215 Z" fill="#09090b" />
-
-                {/* Legs Front (with light & shadow) */}
-                {/* Leg Left-Front */}
-                <path d="M175,245 L175,312 L198,312 L198,245 Z" fill="url(#rail-grad)" stroke="#111" strokeWidth="0.2" />
-                <path d="M198,245 L198,312 L206,302 L206,245 Z" fill="url(#rail-dark-grad)" />
-
-                {/* Leg Right-Front */}
-                <path d="M392,245 L392,312 L415,312 L415,245 Z" fill="url(#rail-grad)" stroke="#111" strokeWidth="0.2" />
-                <path d="M415,245 L415,312 L423,302 L423,245 Z" fill="url(#rail-dark-grad)" />
-
-                {/* Underframe support beam (Thân gỗ đỡ mặt bàn bên dưới) */}
-                <polygon points="100,210 500,210 440,256 160,256" fill="url(#rail-dark-grad)" />
-
-                {/* Outer Rails 3D Thickness (Bề nổi 3D của thành gỗ) */}
-                {/* Left outer thickness */}
-                <polygon points="80,198 140,250 140,258 80,206" fill="url(#rail-dark-grad)" />
-                {/* Front outer thickness */}
-                <polygon points="140,250 460,250 460,258 140,258" fill="url(#rail-dark-grad)" stroke="#111" strokeWidth="0.3" />
-                {/* Right outer thickness */}
-                <polygon points="460,250 520,198 520,206 460,258" fill="url(#rail-dark-grad)" />
-
-                {/* Top Wood Rails (Băng gỗ phẳng bên trên) */}
-                <polygon points="80,198 520,198 460,250 140,250" fill="url(#rail-grad)" stroke="#111" strokeWidth="0.5" />
-
-                {/* Glossy Sheen Overlay on Rails (Lớp ánh phản quang bóng loáng trên gỗ thành băng) */}
-                <polygon points="82,200 518,200 458,248 142,248" fill="url(#glossy-sheen)" opacity="0.15" style={{ pointerEvents: 'none' }} />
-
-                {/* Inner Cloth (Mặt nỉ phẳng) */}
-                <polygon points="98,205 502,205 448,244 152,244" fill="url(#cloth-grad)" />
-
-                {/* Cushion borders 3D Slope (Góc xiên của băng nỉ) */}
-                {/* Back Cushion */}
-                <polygon points="98,205 502,205 490,210 110,210" fill={selectedCloth.shadow} />
-                {/* Left Cushion */}
-                <polygon points="98,205 110,210 158,239 152,244" fill={selectedCloth.shadow} opacity="0.85" />
-                {/* Right Cushion */}
-                <polygon points="502,205 490,210 442,239 448,244" fill={selectedCloth.shadow} opacity="0.85" />
-                {/* Front Cushion */}
-                <polygon points="152,244 448,244 438,239 162,239" fill={selectedCloth.light} />
-
-                {/* Shadow from cushion on the cloth (Bóng đổ nhẹ từ băng xuống mặt bàn) */}
-                <polygon points="110,210 490,210 488,213 112,213" fill="#000000" opacity="0.25" />
-
-                {/* Polished Metallic Corner Plates (Chụp góc kim loại sáng bóng) */}
-                {/* Corner Left-Back */}
-                <path d="M 78,198 L 94,195 L 102,207 L 88,210 Z" fill="url(#metal-grad)" stroke="#111" strokeWidth="0.2" />
-                {/* Corner Right-Back */}
-                <path d="M 522,198 L 506,195 L 498,207 L 512,210 Z" fill="url(#metal-grad)" stroke="#111" strokeWidth="0.2" />
-                {/* Corner Left-Front */}
-                <path d="M 137,250 L 151,240 L 160,251 L 142,259 Z" fill="url(#metal-grad)" stroke="#111" strokeWidth="0.2" />
-                {/* Corner Right-Front */}
-                <path d="M 463,250 L 449,240 L 440,251 L 458,259 Z" fill="url(#metal-grad)" stroke="#111" strokeWidth="0.2" />
-                {/* Middle Pockets */}
-                <path d="M 295,198 L 305,198 L 303,204 L 297,204 Z" fill="url(#metal-grad)" />
-                <path d="M 294,250 L 306,250 L 304,244 L 296,244 Z" fill="url(#metal-grad)" />
-
-                {/* Pocket Holes (Hốc lỗ đen chìm) */}
-                <ellipse cx="98" cy="204" rx="6" ry="4" fill="#0c0a09" />
-                <ellipse cx="502" cy="204" rx="6" ry="4" fill="#0c0a09" />
-                <ellipse cx="152" cy="243" rx="7" ry="5" fill="#0c0a09" />
-                <ellipse cx="448" cy="243" rx="7" ry="5" fill="#0c0a09" />
-                <ellipse cx="300" cy="202" rx="5" ry="3.5" fill="#0c0a09" />
-                <ellipse cx="300" cy="246" rx="6" ry="4" fill="#0c0a09" />
-
-                {/* Diamond Sights on Wood Rails (Điểm nút ngắm khảm trai) */}
-                {/* Back Rail */}
-                <circle cx="200" cy="201" r="1.5" fill="#f8fafc" stroke="#334155" strokeWidth="0.2" />
-                <circle cx="300" cy="201" r="1.5" fill="#f8fafc" stroke="#334155" strokeWidth="0.2" />
-                <circle cx="400" cy="201" r="1.5" fill="#f8fafc" stroke="#334155" strokeWidth="0.2" />
-                {/* Front Rail */}
-                <circle cx="215" cy="247" r="1.5" fill="#f8fafc" stroke="#334155" strokeWidth="0.2" />
-                <circle cx="300" cy="247" r="1.5" fill="#f8fafc" stroke="#334155" strokeWidth="0.2" />
-                <circle cx="385" cy="247" r="1.5" fill="#f8fafc" stroke="#334155" strokeWidth="0.2" />
-
-                {/* 3D Billiard Balls with Highlights */}
-                {/* Cue ball */}
-                <circle cx="230" cy="223" r="6.5" fill="url(#cue-ball-grad)" />
-                {/* Blue ball */}
-                <circle cx="340" cy="225" r="6.5" fill="url(#blue-ball-grad)" />
-                {/* Red ball */}
-                <circle cx="351" cy="230" r="6.5" fill="url(#red-ball-grad)" />
-                {/* Yellow ball */}
-                <circle cx="353" cy="222" r="6.5" fill="url(#yellow-ball-grad)" />
-                
-                {/* Cue Stick (Cơ bi-a bóng loáng) */}
-                <g filter="url(#stick-shadow)">
-                  {/* Shaft of the cue */}
-                  <line x1="205" y1="231" x2="115" y2="274" stroke="#fef08a" strokeWidth="2.5" strokeLinecap="round" />
-                  {/* Wrap section of the cue */}
-                  <line x1="145" y1="259" x2="115" y2="274" stroke="#1c1917" strokeWidth="2.8" />
-                  {/* Cue Tip (Đầu tẩy trắng) */}
-                  <line x1="205" y1="231" x2="209" y2="229" stroke="#f8fafc" strokeWidth="1.8" />
-                </g>
-              </svg>
+              <BilliardTable3D
+                clothHex={selectedCloth.hex}
+                railHex={selectedRail.hex}
+              />
             </div>
 
             {/* Selection Panel */}
