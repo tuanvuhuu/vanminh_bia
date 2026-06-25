@@ -1,14 +1,16 @@
-import { brand, navLinks } from '../data/content'
+import { brand as staticBrand, navLinks } from '../data/content'
 
-export default function Footer() {
+export default function Footer({ brand: propBrand }) {
+  const brand = propBrand || staticBrand
   return (
-    <footer className="border-t border-white/10 bg-ink-900">
+    <footer className="border-t border-line dark:border-white/10 bg-surface dark:bg-ink-900">
       <div className="container-x grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <img src="/images/logo-gold.png" alt={brand.name} className="h-14 w-auto" />
+            <img src={brand.logoDark || '/images/logo-dark.png'} alt={brand.name} className="h-18 w-auto block dark:hidden" />
+            <img src={brand.logoGold || '/images/logo-gold.png'} alt={brand.name} className="h-18 w-auto hidden dark:block" />
           </div>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-400">
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted dark:text-gray-400">
             {brand.name} — {brand.slogan}. {brand.tagline}. Cam kết chất lượng, giá tận gốc,
             bảo hành dài hạn trên toàn quốc.
           </p>
@@ -26,11 +28,11 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-display font-semibold uppercase text-white">Liên kết</h4>
+          <h4 className="font-display font-semibold uppercase text-content dark:text-white">Liên kết</h4>
           <ul className="mt-4 space-y-2 text-sm">
             {navLinks.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="text-gray-400 transition hover:text-gold">
+                <a href={l.href} className="text-muted dark:text-gray-400 transition hover:text-accent-ink dark:hover:text-gold">
                   {l.label}
                 </a>
               </li>
@@ -39,24 +41,24 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-display font-semibold uppercase text-white">Liên hệ</h4>
-          <ul className="mt-4 space-y-2 text-sm text-gray-400">
+          <h4 className="font-display font-semibold uppercase text-content dark:text-white">Liên hệ</h4>
+          <ul className="mt-4 space-y-2 text-sm text-muted dark:text-gray-400">
             <li>📍 {brand.address}</li>
             <li>
-              ☎️ <a href={`tel:${brand.phoneSales.replace(/\./g, '')}`} className="hover:text-gold">{brand.phoneSales}</a>
+              ☎️ <a href={`tel:${brand.phoneSales.replace(/\./g, '')}`} className="hover:text-accent-ink dark:hover:text-gold">{brand.phoneSales}</a>
             </li>
             <li>
-              🔧 <a href={`tel:${brand.phoneTech.replace(/\./g, '')}`} className="hover:text-gold">{brand.phoneTech}</a>
+              🔧 <a href={`tel:${brand.phoneTech.replace(/\./g, '')}`} className="hover:text-accent-ink dark:hover:text-gold">{brand.phoneTech}</a>
             </li>
             <li>
-              ✉️ <a href={`mailto:${brand.email}`} className="hover:text-gold">{brand.email}</a>
+              ✉️ <a href={`mailto:${brand.email}`} className="hover:text-accent-ink dark:hover:text-gold">{brand.email}</a>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-5">
-        <p className="container-x text-center text-sm text-gray-500">
+      <div className="border-t border-line dark:border-white/10 py-5">
+        <p className="container-x text-center text-sm text-muted/80 dark:text-gray-500">
           © {new Date().getFullYear()} {brand.name}. All rights reserved.
         </p>
       </div>

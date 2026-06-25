@@ -1,8 +1,15 @@
-import { partners } from '../data/content'
+import { useFetchTable } from '../hooks/useFetchTable'
+import { partners as fallbackPartners } from '../data/content'
 
 // Dải logo thương hiệu vật liệu chạy ngang (marquee)
 export default function Partners() {
-  const items = [...partners, ...partners]
+  const { data: dbPartners, loading } = useFetchTable('partners')
+
+  const partnerNames = !loading && dbPartners && dbPartners.length > 0
+    ? dbPartners.map((p) => p.name)
+    : fallbackPartners
+
+  const items = [...partnerNames, ...partnerNames]
   return (
     <section className="border-y border-line bg-bg py-10">
       <div className="container-x">

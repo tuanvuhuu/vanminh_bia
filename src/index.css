@@ -69,3 +69,45 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #ffd60a;
 }
+
+/* Chatbot & Floating Action Animations */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseShadowGold {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.2);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(217, 119, 6, 0.45);
+  }
+}
+
+@keyframes pulseShadowBlue {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.45);
+  }
+}
+
+.animate-chatbot {
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-gold {
+  animation: pulseShadowGold 2s infinite ease-in-out;
+}
+
+.animate-pulse-blue {
+  animation: pulseShadowBlue 2s infinite ease-in-out;
+}

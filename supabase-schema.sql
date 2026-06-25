@@ -18,6 +18,8 @@ CREATE TABLE IF NOT EXISTS brand_info (
   email TEXT,
   zalo TEXT,
   facebook TEXT,
+  logo_dark TEXT,
+  logo_gold TEXT,
   updated_at TIMESTAMP DEFAULT NOW()
 );
 

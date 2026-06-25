@@ -8,3 +8,19 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+export const logInteraction = async (actionType, source) => {
+  try {
+    await supabase.from('consultations').insert([
+      {
+        name: `Khách click ${actionType}`,
+        phone: 'Liên kết nhanh',
+        address: source,
+        message: `Khách hàng bấm liên kết trực tiếp để kết nối qua ${actionType}.`,
+        status: 'Chờ liên hệ',
+      }
+    ])
+  } catch (err) {
+    console.error('Lỗi khi ghi nhận click:', err)
+  }
+}

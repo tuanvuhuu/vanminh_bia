@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { brand, navLinks, languages } from '../data/content'
+import { brand as staticBrand, navLinks } from '../data/content'
 import ThemeToggle from './ThemeToggle'
 import Logo from './Logo'
 
-export default function Header({ theme, toggle }) {
+export default function Header({ brand: propBrand, theme, toggle }) {
+  const brand = propBrand || staticBrand
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const [lang, setLang] = useState('vi')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -17,38 +17,6 @@ export default function Header({ theme, toggle }) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* Top bar */}
-      <div className="hidden bg-ink-900 text-gray-300 md:block">
-        <div className="container-x flex h-9 items-center justify-between text-xs">
-          <div className="flex items-center gap-5">
-            <span className="flex items-center gap-1.5">
-              <DotIcon /> {brand.address}
-            </span>
-            <a href={`mailto:${brand.email}`} className="hover:text-gold">
-              ✉ {brand.email}
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href={`tel:${brand.phoneSales.replace(/\./g, '')}`} className="font-semibold text-gold">
-              Hotline: {brand.phoneSales}
-            </a>
-            <span className="h-3 w-px bg-white/20" />
-            <div className="flex items-center gap-1.5">
-              {languages.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => setLang(l.code)}
-                  title={l.label}
-                  className={`transition ${lang === l.code ? 'opacity-100' : 'opacity-50 hover:opacity-100'}`}
-                >
-                  {l.flag}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main nav */}
       <div
         className={`transition-all duration-300 ${
@@ -57,7 +25,7 @@ export default function Header({ theme, toggle }) {
       >
         <div className="container-x flex h-16 items-center justify-between md:h-20">
           <a href="#home" className="flex items-center gap-3">
-            <Logo className="h-10 w-auto md:h-12" />
+            <Logo className="h-20 w-auto md:h-28" />
           </a>
 
           <nav className="hidden items-center gap-6 xl:flex">

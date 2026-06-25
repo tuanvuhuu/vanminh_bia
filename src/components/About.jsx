@@ -1,7 +1,8 @@
-import { reasons, brand } from '../data/content'
+import { reasons, brand as staticBrand } from '../data/content'
 import SectionTitle from './SectionTitle'
 
-export default function About() {
+export default function About({ brand: propBrand }) {
+  const brand = propBrand || staticBrand
   return (
     <section id="about" className="section bg-surface">
       <div className="container-x grid items-center gap-12 lg:grid-cols-2">

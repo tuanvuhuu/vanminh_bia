@@ -16,14 +16,14 @@
     />
     <title>Vikings Billiards | Bàn Bi-A Cao Cấp Chính Hãng</title>
     <script>
-      // Chống nhấp nháy: áp theme trước khi render (mặc định: tối)
+      // Chống nhấp nháy: áp theme trước khi render (mặc định: sáng)
       (function () {
         try {
-          var t = localStorage.getItem('theme');
-          if (t === 'light') document.documentElement.classList.remove('dark');
-          else document.documentElement.classList.add('dark');
+          var t = localStorage.getItem('theme_v2');
+          if (t === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
         } catch (e) {
-          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('dark');
         }
       })();
     </script>

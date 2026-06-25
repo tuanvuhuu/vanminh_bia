@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { supabase } from '../../lib/supabaseClient'
+import Lightbox from '../Lightbox'
 
 const BUCKET = 'uploads'
 
@@ -16,7 +17,7 @@ async function uploadFile(file) {
   return data.publicUrl
 }
 
-function Dropzone({ busy, multiple, onPick, label }) {
+function Dropzone({ busy, multiple, onPick, label, className = 'h-28 w-40' }) {
   const inputRef = useRef()
   const [drag, setDrag] = useState(false)
 
@@ -35,17 +36,17 @@ function Dropzone({ busy, multiple, onPick, label }) {
           setDrag(false)
           onPick(e.dataTransfer.files)
         }}
-        className={`flex h-28 w-40 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed text-center text-xs font-medium transition ${
+        className={`flex flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed text-center text-xs font-medium transition ${className} ${
           drag
             ? 'border-amber-500 bg-amber-50 text-amber-700'
             : 'border-gray-300 bg-gray-50 text-gray-500 hover:border-amber-400 hover:text-amber-600'
         }`}
       >
         {busy ? (
-          <span>Đang tải lên...</span>
+          <span>Đang tải...</span>
         ) : (
           <>
-            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <svg className="h-5.5 w-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
             </svg>
             <span>{label}</span>
@@ -67,6 +68,7 @@ function Dropzone({ busy, multiple, onPick, label }) {
 export default function ImageUpload({ value, onChange, multiple = false }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [viewIndex, setViewIndex] = useState(null)
 
   const handlePick = async (fileList) => {
     const files = Array.from(fileList || [])
@@ -99,23 +101,31 @@ export default function ImageUpload({ value, onChange, multiple = false }) {
               <img
                 src={url}
                 alt=""
-                className="h-28 w-28 rounded-lg border border-gray-200 object-cover"
+                onClick={() => setViewIndex(i)}
+                className="h-28 w-28 rounded-lg border border-gray-200 object-cover shadow-sm transition group-hover:opacity-90 cursor-zoom-in hover:brightness-95"
               />
               <button
                 type="button"
                 onClick={() => onChange(imgs.filter((_, idx) => idx !== i))}
-                className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white shadow transition hover:bg-red-600"
+                className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm transition hover:bg-red-600 focus:outline-none"
                 title="Xóa ảnh"
               >
-                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M18 6 6 18M6 6l12 12" />
                 </svg>
               </button>
             </div>
           ))}
-          <Dropzone busy={busy} multiple onPick={handlePick} label="Thêm ảnh" />
+          <Dropzone busy={busy} multiple onPick={handlePick} label="Thêm ảnh" className="h-28 w-28" />
         </div>
-        {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+        {error && <p className="mt-1.5 text-xs text-red-600">{error}</p>}
+        {viewIndex !== null && (
+          <Lightbox
+            images={imgs}
+            startIndex={viewIndex}
+            onClose={() => setViewIndex(null)}
+          />
+        )}
       </div>
     )
   }
@@ -128,23 +138,31 @@ export default function ImageUpload({ value, onChange, multiple = false }) {
           <img
             src={value}
             alt=""
-            className="h-28 w-40 rounded-lg border border-gray-200 object-cover"
+            onClick={() => setViewIndex(0)}
+            className="h-28 w-full min-w-[140px] max-w-[240px] rounded-lg border border-gray-200 object-cover shadow-sm cursor-zoom-in hover:brightness-95 transition"
           />
           <button
             type="button"
             onClick={() => onChange('')}
-            className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white shadow transition hover:bg-red-600"
+            className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm transition hover:bg-red-600 focus:outline-none"
             title="Xóa ảnh"
           >
-            <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M18 6 6 18M6 6l12 12" />
             </svg>
           </button>
         </div>
       ) : (
-        <Dropzone busy={busy} onPick={handlePick} label="Chọn ảnh" />
+        <Dropzone busy={busy} onPick={handlePick} label="Chọn ảnh" className="h-28 w-full max-w-[240px]" />
       )}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-1.5 text-xs text-red-600">{error}</p>}
+      {viewIndex !== null && (
+        <Lightbox
+          images={[value]}
+          startIndex={0}
+          onClose={() => setViewIndex(null)}
+        />
+      )}
     </div>
   )
 }

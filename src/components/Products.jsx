@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { useFetchTable } from '../hooks/useFetchTable'
-import { accessories, brand } from '../data/content'
+import { accessories, brand as staticBrand } from '../data/content'
 import DBSectionTitle from './DBSectionTitle'
 import Lightbox from './Lightbox'
+import OrderModal from './OrderModal'
 
-export default function Products() {
+export default function Products({ brand: propBrand }) {
+  const brand = propBrand || staticBrand
   const [box, setBox] = useState(null) // { images, startIndex }
+  const [orderingProduct, setOrderingProduct] = useState(null)
   const { data: products, loading } = useFetchTable('products')
 
   return (
@@ -22,9 +25,17 @@ export default function Products() {
           <p className="text-center text-muted">Đang tải sản phẩm...</p>
         ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => {
-            const gallery = p.gallery || [p.image]
-            return (
+          {[...products]
+            .sort((a, b) => {
+              const aHot = a.badge && a.badge.toLowerCase().includes('hot')
+              const bHot = b.badge && b.badge.toLowerCase().includes('hot')
+              if (aHot && !bHot) return -1
+              if (!aHot && bHot) return 1
+              return 0
+            })
+            .map((p) => {
+              const gallery = p.gallery || [p.image]
+              return (
               <article
                 key={p.code}
                 className="group card flex flex-col overflow-hidden hover:-translate-y-1 hover:border-gold/60 hover:shadow-xl hover:shadow-gold/10"
@@ -41,7 +52,13 @@ export default function Products() {
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
                   {p.badge && (
-                    <span className="absolute left-3 top-3 rounded bg-gold px-2 py-1 text-xs font-bold text-black">
+                    <span
+                      className={`absolute left-3 top-3 rounded px-3 py-1 text-xs font-extrabold uppercase tracking-wide border shadow-lg ${
+                        p.badge.toLowerCase().includes('hot')
+                          ? 'bg-red-600 text-white border-red-400/50 shadow-red-600/60 animate-pulse'
+                          : 'bg-gold text-black border-yellow-300/40 shadow-yellow-600/40'
+                      }`}
+                    >
                       {p.badge}
                     </span>
                   )}
@@ -79,12 +96,12 @@ export default function Products() {
                       {p.oldPrice && <span className="block text-xs text-muted line-through">{p.oldPrice}</span>}
                       <span className="font-display text-xl font-bold text-accent-ink">{p.price}</span>
                     </div>
-                    <a
-                      href={`tel:${brand.phoneSales.replace(/\./g, '')}`}
+                    <button
+                      onClick={() => setOrderingProduct(p)}
                       className="btn-gold px-4 py-2 text-sm"
                     >
                       Đặt mua
-                    </a>
+                    </button>
                   </div>
                 </div>
               </article>
@@ -130,6 +147,13 @@ export default function Products() {
       </div>
 
       {box && <Lightbox images={box.images} startIndex={box.startIndex} onClose={() => setBox(null)} />}
+      {orderingProduct && (
+        <OrderModal
+          product={orderingProduct}
+          brand={brand}
+          onClose={() => setOrderingProduct(null)}
+        />
+      )}
     </section>
   )
 }

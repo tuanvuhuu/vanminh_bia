@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback } from 'react'
-import { brand, banners, stats } from '../data/content'
+import { brand as staticBrand, banners, stats } from '../data/content'
 
-export default function Hero() {
+export default function Hero({ brand: propBrand }) {
+  const brand = propBrand || staticBrand
   const [idx, setIdx] = useState(0)
   const next = useCallback(() => setIdx((i) => (i + 1) % banners.length), [])
   const go = (i) => setIdx(i)
@@ -12,7 +13,7 @@ export default function Hero() {
   }, [next])
 
   return (
-    <section id="home" className="bg-ink-900 pt-[100px] md:pt-[112px]">
+     <section id="home" className="bg-bg dark:bg-ink-900 pt-[64px] md:pt-[80px]">
       {/* Slider */}
       <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[2/1] lg:aspect-[3/1]">
         {banners.map((b, i) => (
@@ -67,17 +68,17 @@ export default function Hero() {
       </div>
 
       {/* Dải CTA + slogan */}
-      <div className="bg-gradient-to-b from-ink-900 to-bg">
+      <div className="bg-gradient-to-b from-surface to-bg dark:from-ink-900 dark:to-bg">
         <div className="container-x py-8 text-center">
-          <h1 className="heading text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+          <h1 className="heading text-2xl font-bold text-content dark:text-white sm:text-3xl md:text-4xl">
             {brand.name} <span className="text-gold">— {brand.slogan}</span>
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-gray-300">{brand.tagline}</p>
+          <p className="mx-auto mt-3 max-w-2xl text-muted dark:text-gray-300">{brand.tagline}</p>
           <div className="mt-6 flex flex-wrap justify-center gap-4">
             <a href="#products" className="btn-gold">
               Xem các mẫu bàn
             </a>
-            <a href={`tel:${brand.phoneSales.replace(/\./g, '')}`} className="btn-ghost border-gold/60 text-gold">
+            <a href={`tel:${brand.phoneSales.replace(/\./g, '')}`} className="btn-ghost border-gold/60 text-accent-ink dark:text-gold">
               Tư vấn: {brand.phoneSales}
             </a>
           </div>

@@ -1,4 +1,5 @@
 import AdminGallery from './AdminGallery'
+import Overview from './Overview'
 
 // Cấu hình tất cả section của admin: sidebar nav + CRUD config
 // icon: path bên trong <svg viewBox="0 0 24 24" stroke="currentColor">
@@ -7,12 +8,23 @@ const truncate = (s, n = 50) => (s && s.length > n ? s.slice(0, n) + '…' : s |
 
 const thumb = (url) =>
   url ? (
-    <img src={url} alt="" className="h-10 w-14 rounded border border-gray-200 object-cover" />
+    <img
+      src={url}
+      alt=""
+      className="h-10 w-14 rounded border border-gray-200 object-cover cursor-zoom-in hover:brightness-90 transition shadow-sm"
+    />
   ) : (
     <span className="text-xs text-gray-300">—</span>
   )
 
 export const sections = [
+  {
+    id: 'dashboard',
+    label: 'Tổng quan',
+    title: 'Tổng quan',
+    component: Overview,
+    icon: <path d="M3 13h8V3H3zM13 21h8V3h-8zM3 21h8v-6H3z" />,
+  },
   {
     id: 'products',
     label: 'Sản phẩm',
@@ -34,7 +46,18 @@ export const sections = [
         label: 'Nhãn',
         type: 'combo',
         span: 3,
-        options: ['Cao cấp nhất', 'Chuẩn thi đấu', 'Bán chạy', 'Ưu đãi', 'Giá tốt', 'Mới', 'Hết hàng'],
+        options: [
+          'Cao cấp nhất',
+          'Chuẩn thi đấu',
+          'Bán chạy',
+          'Sản phẩm HOT',
+          'HOT',
+          'Nổi bật',
+          'Ưu đãi',
+          'Giá tốt',
+          'Mới',
+          'Hết hàng',
+        ],
       },
       { key: 'price', label: 'Giá', type: 'text', span: 4 },
       { key: 'old_price', label: 'Giá cũ', type: 'text', span: 4 },
@@ -236,6 +259,20 @@ export const sections = [
     singleton: true,
     icon: <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01" />,
     fields: [
+      {
+        key: 'logo_dark',
+        label: 'Logo (nền sáng)',
+        type: 'image',
+        span: 6,
+        hint: 'Hiển thị trên header sáng & trang admin.',
+      },
+      {
+        key: 'logo_gold',
+        label: 'Logo (nền tối / dark mode)',
+        type: 'image',
+        span: 6,
+        hint: 'Hiển thị khi trang ở chế độ tối.',
+      },
       { key: 'name', label: 'Tên thương hiệu', type: 'text', span: 6 },
       { key: 'slogan', label: 'Slogan', type: 'text', span: 6 },
       { key: 'tagline', label: 'Tagline', type: 'textarea', full: true, rows: 2 },
@@ -247,4 +284,100 @@ export const sections = [
       { key: 'facebook', label: 'Facebook URL', type: 'text', span: 6 },
     ],
   },
+  {
+    id: 'consultations',
+    label: 'Đăng ký tư vấn',
+    table: 'consultations',
+    title: 'Danh sách đăng ký tư vấn',
+    icon: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
+    columns: [
+      { key: 'name', label: 'Họ tên' },
+      { key: 'phone', label: 'Số điện thoại' },
+      { key: 'address', label: 'Khu vực' },
+      { key: 'message', label: 'Nội dung', render: (r) => truncate(r.message, 50) },
+      {
+        key: 'status',
+        label: 'Trạng thái',
+        render: (r) => {
+          const badgeColors = {
+            'Chờ liên hệ': 'bg-amber-50 text-amber-700 border-amber-200',
+            'Đang liên hệ': 'bg-blue-50 text-blue-700 border-blue-200',
+            'Đã xong': 'bg-green-50 text-green-700 border-green-200',
+            'Hủy': 'bg-red-50 text-red-600 border-red-200',
+          }
+          const color = badgeColors[r.status] || 'bg-gray-50 text-gray-700 border-gray-200'
+          return (
+            <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium border ${color}`}>
+              {r.status || 'Chờ liên hệ'}
+            </span>
+          )
+        },
+      },
+    ],
+    fields: [
+      { key: 'name', label: 'Họ tên khách hàng', type: 'text', required: true, span: 6 },
+      { key: 'phone', label: 'Số điện thoại', type: 'text', required: true, span: 6 },
+      { key: 'address', label: 'Khu vực', type: 'text', span: 6 },
+      {
+        key: 'status',
+        label: 'Trạng thái',
+        type: 'select',
+        span: 6,
+        options: [
+          { value: 'Chờ liên hệ', label: 'Chờ liên hệ' },
+          { value: 'Đang liên hệ', label: 'Đang liên hệ' },
+          { value: 'Đã xong', label: 'Đã xong' },
+          { value: 'Hủy', label: 'Hủy' },
+        ],
+      },
+      { key: 'message', label: 'Nội dung yêu cầu', type: 'textarea', full: true, rows: 4 },
+    ],
+  },
+  {
+    id: 'chatbot_settings',
+    label: 'Cấu hình Chatbot',
+    table: 'chatbot_settings',
+    title: 'Cấu hình Chatbot trợ lý',
+    icon: <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2zm1 10h-2v5h2v-5zm0-4h-2v2h2V8z" />,
+    singleton: true,
+    columns: [
+      { key: 'bot_name', label: 'Tên Bot' },
+      { key: 'enabled', label: 'Hoạt động', render: (r) => (r.enabled ? '🟢 Đang bật' : '🔴 Đang tắt') },
+      { key: 'welcome_message', label: 'Lời chào', render: (r) => truncate(r.welcome_message, 40) },
+      { key: 'fallback_message', label: 'Tin phản hồi chưa học', render: (r) => truncate(r.fallback_message, 40) },
+    ],
+    fields: [
+      { key: 'bot_name', label: 'Tên Chatbot', type: 'text', required: true, span: 6 },
+      {
+        key: 'enabled',
+        label: 'Trạng thái hoạt động',
+        type: 'select',
+        span: 6,
+        options: [
+          { value: true, label: 'Bật trợ lý chatbot' },
+          { value: false, label: 'Tắt trợ lý chatbot' },
+        ],
+      },
+      { key: 'welcome_message', label: 'Lời chào mừng', type: 'textarea', full: true, rows: 2, required: true },
+      { key: 'fallback_message', label: 'Tin nhắn khi không hiểu câu hỏi', type: 'textarea', full: true, rows: 3, required: true },
+    ],
+  },
+  {
+    id: 'chatbot_rules',
+    label: 'Kịch bản Chatbot',
+    table: 'chatbot_rules',
+    title: 'Câu hỏi thường gặp & Câu trả lời của Chatbot',
+    icon: <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />,
+    columns: [
+      { key: 'question', label: 'Câu hỏi' },
+      { key: 'answer', label: 'Câu trả lời', render: (r) => truncate(r.answer, 60) },
+      { key: 'sort_order', label: 'Thứ tự' },
+    ],
+    fields: [
+      { key: 'question', label: 'Câu hỏi khách hàng thường chọn/nhập', type: 'text', required: true, full: true },
+      { key: 'answer', label: 'Câu trả lời của Chatbot', type: 'textarea', required: true, full: true, rows: 4 },
+      { key: 'sort_order', label: 'Thứ tự ưu tiên hiển thị', type: 'number', span: 6 },
+    ],
+  },
 ]
+
