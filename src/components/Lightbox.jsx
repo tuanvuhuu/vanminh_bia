@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react'
 
+const isYoutubeUrl = (url) => {
+  return url && (url.includes('youtube.com') || url.includes('youtu.be') || url.includes('embed'))
+}
+
+const getYoutubeId = (url) => {
+  if (!url) return null
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+  const match = url.match(regExp)
+  return (match && match[2].length === 11) ? match[2] : null
+}
+
 // Lightbox xem ảnh phóng to, hỗ trợ nhiều ảnh (gallery)
 export default function Lightbox({ images, startIndex = 0, onClose }) {
   const [idx, setIdx] = useState(startIndex)
@@ -49,12 +60,28 @@ export default function Lightbox({ images, startIndex = 0, onClose }) {
         </button>
       )}
 
-      <img
-        src={images[idx]}
-        alt=""
-        onClick={(e) => e.stopPropagation()}
-        className="max-h-[88vh] max-w-full rounded-lg object-contain shadow-2xl"
-      />
+      {isYoutubeUrl(images[idx]) ? (
+        <div 
+          className="relative w-full max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black" 
+          onClick={(e) => e.stopPropagation()}
+        >
+          <iframe
+            src={`https://www.youtube.com/embed/${getYoutubeId(images[idx])}?autoplay=1`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-play"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
+      ) : (
+        <img
+          src={images[idx]}
+          alt=""
+          onClick={(e) => e.stopPropagation()}
+          className="max-h-[88vh] max-w-full rounded-lg object-contain shadow-2xl"
+        />
+      )}
 
       {many && (
         <button
