@@ -34,6 +34,14 @@ export const languages = [
 
 // Banner cho hero slider
 export const banners = [
+  {
+    img: '/images/sales/evo re.jpg',
+    title: 'Vikings Pro-Evo',
+    sub: 'Đẳng cấp vượt trội cho mọi không gian',
+    price: '60.000.000đ',
+    oldPrice: '70.000.000đ',
+    badge: 'SIÊU ƯU ĐÃI'
+  },
   { img: '/images/banner-premium.jpg', title: 'Premium Quality', sub: 'Affordable Price' },
   { img: '/images/banner-dragon.jpg', title: 'Dragon Black', sub: 'Exquisite Present' },
   { img: '/images/banner-blackheart.jpg', title: 'Black Heart', sub: 'Quality · Uniqueness' },
