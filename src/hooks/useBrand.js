@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabaseClient'
 import { brand as fallbackBrand } from '../data/content'
 
 // Lấy thông tin thương hiệu (singleton, id = 1)
-export function useBrand() {
+export function useBrand(refreshTrigger) {
   const [brand, setBrand] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -14,7 +14,8 @@ export function useBrand() {
       .select('*')
       .eq('id', 1)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) throw error
         if (!active) return
         if (data) {
           setBrand({
@@ -30,10 +31,16 @@ export function useBrand() {
         }
         setLoading(false)
       })
+      .catch((err) => {
+        console.error('Lỗi khi tải thông tin thương hiệu:', err)
+        if (active) {
+          setLoading(false)
+        }
+      })
     return () => {
       active = false
     }
-  }, [])
+  }, [refreshTrigger])
 
   return { brand, loading }
 }

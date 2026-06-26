@@ -2,6 +2,7 @@ import { useState } from 'react'
 import DBSectionTitle from './DBSectionTitle'
 import OrderModal from './OrderModal'
 import BilliardTable3D from './BilliardTable3D'
+import FloorPlanner2D from './FloorPlanner2D'
 
 const CLOTHS = [
   { id: 'blue', label: 'Xanh Royal (CPBA Blue)', hex: '#0f4c81', shadow: '#0b3861', light: '#1b5d9b' },
@@ -254,7 +255,8 @@ export default function InteractiveStudio({ brand }) {
           </div>
         ) : (
           /* CLB BUDGET CALCULATOR */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Input Controls */}
             <div className="lg:col-span-5 bg-surface-2 dark:bg-ink-950/40 p-6 rounded-2xl border border-line space-y-6">
               <h3 className="font-display text-base font-bold text-content uppercase tracking-wider border-b border-line pb-3">
@@ -419,6 +421,11 @@ export default function InteractiveStudio({ brand }) {
               </div>
             </div>
           </div>
+          
+          <div className="mt-8">
+            <FloorPlanner2D initialTableCount={tableCount} />
+          </div>
+          </>
         )}
       </div>
 

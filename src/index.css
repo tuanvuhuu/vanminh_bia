@@ -25,6 +25,12 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 4rem; /* Chiều cao header mobile (h-16) */
+  }
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 5rem; /* Chiều cao header desktop (h-20) */
+    }
   }
   body {
     @apply bg-bg text-content font-sans antialiased transition-colors duration-300;

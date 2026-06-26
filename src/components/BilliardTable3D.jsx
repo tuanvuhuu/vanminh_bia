@@ -2,6 +2,7 @@ import { useRef, useState, Suspense } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera, useHelper } from '@react-three/drei'
 import * as THREE from 'three'
+import { useTheme } from '../hooks/useTheme'
 
 // Pocket positions (6 pockets: 4 corners + 2 middle)
 const POCKET_POS = [
@@ -39,7 +40,7 @@ const BALLS_DATA = [
   [ 1.06,0.19,  0.15,'#92400e'], // 7 chestnut
 ]
 
-function TableModel({ clothHex, railHex, autoRotate }) {
+function TableModel({ clothHex, railHex, autoRotate, floorHex }) {
   const groupRef = useRef()
 
   // Auto-rotate until user interaction
@@ -211,37 +212,37 @@ function TableModel({ clothHex, railHex, autoRotate }) {
       </group>
 
       {/* === FLOOR SHADOW === */}
-      <mesh position={[0, -1.35, 0]} receiveShadow>
-        <planeGeometry args={[8, 5]} />
-        <meshStandardMaterial color="#080608" roughness={0.95} />
+      <mesh position={[0, -1.35, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[100, 100]} />
+        <shadowMaterial transparent opacity={0.07} />
       </mesh>
     </group>
   )
 }
 
-function Lighting() {
+function Lighting({ isDark }) {
   return (
     <>
       {/* Ambient fill */}
-      <ambientLight intensity={0.25} color="#c8d8f0" />
+      <ambientLight intensity={isDark ? 0.35 : 0.65} color={isDark ? '#c8d8f0' : '#ffffff'} />
 
-      {/* Main overhead spot (simulates the LED fixture) */}
-      <spotLight
-        position={[0, 4, 0]}
-        angle={0.55}
-        penumbra={0.4}
-        intensity={3.5}
+      {/* Main overhead directional light (simulates overhead lighting) */}
+      <directionalLight
+        position={[0, 5, 0]}
+        intensity={isDark ? 1.5 : 2.0}
         color="#fff8e8"
         castShadow
-        shadow-mapSize={[2048, 2048]}
-        shadow-bias={-0.0005}
-      />
+        shadow-mapSize={[1024, 1024]}
+        shadow-bias={-0.002}
+      >
+        <orthographicCamera attach="shadow-camera" args={[-3, 3, 3, -3, 0.5, 10]} />
+      </directionalLight>
 
       {/* Key light (front-left, warm) */}
-      <pointLight position={[-5, 4, 3]} intensity={0.8} color="#fdf0d8" distance={18} />
+      <pointLight position={[-5, 4, 3]} intensity={isDark ? 0.8 : 1.0} color="#fdf0d8" distance={18} />
 
       {/* Rim light (back-right, cool blue) */}
-      <pointLight position={[5, 3, -4]} intensity={0.5} color="#c0d8f8" distance={16} />
+      <pointLight position={[5, 3, -4]} intensity={isDark ? 0.5 : 0.7} color="#c0d8f8" distance={16} />
 
       {/* Under-table subtle fill */}
       <pointLight position={[0, -1, 0]} intensity={0.12} color="#401010" distance={4} />
@@ -251,25 +252,29 @@ function Lighting() {
 
 export default function BilliardTable3D({ clothHex = '#0f4c81', railHex = '#d97706' }) {
   const [userInteracted, setUserInteracted] = useState(false)
+  const { theme } = useTheme()
+
+  const isDark = theme === 'dark'
+  const bgHex = '#ffffff'
+  const floorHex = isDark ? '#f1f5f9' : '#f8fafc'
 
   return (
-    <div className="w-full h-full" onPointerDown={() => setUserInteracted(true)}>
+    <div className="w-full h-full bg-white" onPointerDown={() => setUserInteracted(true)}>
       <Canvas
         shadows
         dpr={[1, 2]}
-        gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.2 }}
+        gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.2, alpha: true }}
       >
         <PerspectiveCamera makeDefault position={[5.5, 3.8, 5.5]} fov={32} />
-        <color attach="background" args={['#070709']} />
-        <fog attach="fog" args={['#070709', 14, 28]} />
 
-        <Lighting />
+        <Lighting isDark={isDark} />
 
         <Suspense fallback={null}>
           <TableModel
             clothHex={clothHex}
             railHex={railHex}
             autoRotate={!userInteracted}
+            floorHex={floorHex}
           />
         </Suspense>
 

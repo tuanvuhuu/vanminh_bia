@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabaseClient'
 
 export default function OrderModal({ product, brand, onClose }) {
@@ -8,6 +8,14 @@ export default function OrderModal({ product, brand, onClose }) {
   const [notes, setNotes] = useState(product.customNotes || '')
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
+
+  // Ngăn cuộn trang phía dưới khi mở Modal
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()

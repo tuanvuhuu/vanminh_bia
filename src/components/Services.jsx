@@ -33,7 +33,7 @@ export default function Services() {
               style={{ transitionDelay: `${i * 100}ms` }}
               className="group relative overflow-hidden rounded-xl border border-line bg-bg p-7 transition hover:border-gold/60 reveal"
             >
-              <span className="absolute -right-3 -top-4 font-display text-7xl font-bold text-content/5">
+              <span className="absolute right-4 top-2 font-display text-6xl font-bold text-content/5 select-none pointer-events-none">
                 0{i + 1}
               </span>
               <div className="relative flex h-14 w-14 items-center justify-center rounded-lg bg-gold/15 text-accent-ink transition group-hover:bg-gold group-hover:text-black">

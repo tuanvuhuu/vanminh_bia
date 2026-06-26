@@ -231,6 +231,8 @@ export const sections = [
     table: 'section_meta',
     title: 'Tiêu đề các mục trên trang',
     pk: 'key',
+    orderBy: 'key',
+    ascending: true,
     icon: <path d="M4 6h16M4 12h10M4 18h7" />,
     columns: [
       { key: 'key', label: 'Mã mục' },
@@ -331,6 +333,39 @@ export const sections = [
         ],
       },
       { key: 'message', label: 'Nội dung yêu cầu', type: 'textarea', full: true, rows: 4 },
+    ],
+  },
+  {
+    id: 'fake_orders',
+    label: 'Đơn hàng ảo (Nổ đơn)',
+    table: 'fake_orders',
+    title: 'Danh sách Đơn hàng ảo / Nổ đơn',
+    pk: 'id',
+    orderBy: 'created_at',
+    ascending: false,
+    icon: <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />,
+    columns: [
+      { key: 'name', label: 'Tên' },
+      { key: 'location', label: 'Khu vực' },
+      { key: 'text', label: 'Nội dung thông báo' },
+      { key: 'type', label: 'Phân loại' },
+    ],
+    fields: [
+      { key: 'name', label: 'Tên hiển thị (vd: Anh Tuấn, Chị Hoa)', type: 'text', required: true, span: 6 },
+      { key: 'location', label: 'Khu vực (vd: Hà Nội, TP. HCM)', type: 'text', required: true, span: 6 },
+      { key: 'text', label: 'Nội dung (vd: đã đặt mua bàn Vikings Monster)', type: 'text', required: true, full: true },
+      {
+        key: 'type',
+        label: 'Phân loại',
+        type: 'select',
+        span: 6,
+        options: [
+          { value: 'product', label: 'Sản phẩm (🎱)' },
+          { value: 'consultation', label: 'Tư vấn (📋)' },
+          { value: 'accessory', label: 'Phụ kiện / dịch vụ (📦)' },
+        ],
+      },
+      { key: 'image', label: 'Hình ảnh sản phẩm / thông báo', type: 'image', span: 6, hint: 'Tải lên hoặc chọn ảnh để hiển thị trong thông báo.' },
     ],
   },
   {

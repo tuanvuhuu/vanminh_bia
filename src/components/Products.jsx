@@ -4,6 +4,7 @@ import { accessories, brand as staticBrand } from '../data/content'
 import DBSectionTitle from './DBSectionTitle'
 import Lightbox from './Lightbox'
 import OrderModal from './OrderModal'
+import CompareModal from './CompareModal'
 
 export default function Products({ brand: propBrand }) {
   const brand = propBrand || staticBrand
@@ -132,66 +133,6 @@ export default function Products({ brand: propBrand }) {
         </button>
       </div>
 
-      {showComparison && (
-        <div className="mt-8 overflow-x-auto rounded-xl border border-line bg-surface p-4 md:p-6 animate-chatbot">
-          <table className="w-full text-left text-xs border-collapse min-w-[700px]">
-            <thead>
-              <tr className="border-b border-line">
-                <th className="p-3.5 font-bold text-content uppercase tracking-wider bg-surface-2 dark:bg-ink-950 w-1/5 rounded-tl-lg">Tiêu chí</th>
-                <th className="p-3.5 font-bold text-accent-ink dark:text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5">Vikings Hero</th>
-                <th className="p-3.5 font-bold text-accent-ink dark:text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5">Hunter Royal</th>
-                <th className="p-3.5 font-bold text-accent-ink dark:text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5">Vikings Rise</th>
-                <th className="p-3.5 font-bold text-gold bg-surface-2 dark:bg-ink-950 text-center w-1/5 rounded-tr-lg">Vikings Monster (VK25)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-line hover:bg-surface-2/40">
-                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Mặt đá (Slab)</td>
-                <td className="p-3.5 text-muted text-center">Đá tự nhiên 3 tấm (dày 25mm)</td>
-                <td className="p-3.5 text-muted text-center">Đá xanh tự nhiên nhập khẩu (dày 25mm)</td>
-                <td className="p-3.5 text-muted text-center">Đá bùn đen cao cấp (dày 25mm, phẳng 99%)</td>
-                <td className="p-3.5 text-content font-semibold text-center">Đá đen tự nhiên (25mm, siêu phẳng 99.9%)</td>
-              </tr>
-              <tr className="border-b border-line hover:bg-surface-2/40">
-                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Khung gầm (Underframe)</td>
-                <td className="p-3.5 text-muted text-center">Gỗ MDF chống ẩm tăng cường</td>
-                <td className="p-3.5 text-muted text-center">Gỗ tự nhiên khối chống cong</td>
-                <td className="p-3.5 text-muted text-center">Khung thép H-beam chống rung</td>
-                <td className="p-3.5 text-content font-semibold text-center">Khung thép H-beam đúc nguyên khối chống rung 100%</td>
-              </tr>
-              <tr className="border-b border-line hover:bg-surface-2/40">
-                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Băng cao su (Cushion)</td>
-                <td className="p-3.5 text-muted text-center">Băng cao cấp Đài Loan đàn hồi chuẩn</td>
-                <td className="p-3.5 text-muted text-center">Băng Premier / K55 nảy cao</td>
-                <td className="p-3.5 text-muted text-center">Băng K55 chuẩn thi đấu quốc tế</td>
-                <td className="p-3.5 text-content font-semibold text-center">Băng Uylin K55 nhập khẩu chính hãng</td>
-              </tr>
-              <tr className="border-b border-line hover:bg-surface-2/40">
-                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Hệ thống sưởi (Heating)</td>
-                <td className="p-3.5 text-muted text-center">Không hỗ trợ</td>
-                <td className="p-3.5 text-muted text-center">Không hỗ trợ</td>
-                <td className="p-3.5 text-muted text-center">Sưởi điện tử tự động ngắt</td>
-                <td className="p-3.5 text-content font-semibold text-center">Sưởi nhiệt đa vùng độc lập cảm biến</td>
-              </tr>
-              <tr className="border-b border-line hover:bg-surface-2/40">
-                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20">Bóng đi kèm (Balls)</td>
-                <td className="p-3.5 text-muted text-center">Dyna Titanium / Joss</td>
-                <td className="p-3.5 text-muted text-center">Dyna Titanium / CPBA</td>
-                <td className="p-3.5 text-muted text-center">Aramith Premium / Dyna Pro</td>
-                <td className="p-3.5 text-content font-semibold text-center">Aramith Pro-Cup TV (Bỉ) chuyên nghiệp</td>
-              </tr>
-              <tr className="hover:bg-surface-2/40">
-                <td className="p-3.5 font-bold text-content bg-surface-2/20 dark:bg-ink-950/20 rounded-bl-lg">Phù hợp nhu cầu</td>
-                <td className="p-3.5 text-muted text-center">CLB học sinh, hồi vốn nhanh</td>
-                <td className="p-3.5 text-muted text-center">CLB phong trào chất lượng tầm trung</td>
-                <td className="p-3.5 text-muted text-center">CLB chuyên nghiệp cao cấp, khách VIP</td>
-                <td className="p-3.5 text-content font-semibold text-center rounded-br-lg">CLB siêu sang, giải đấu, cơ thủ Pro</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
-
         {/* Phụ kiện */}
         <div className="mt-16">
           <h3 className="heading mb-6 text-center text-2xl font-bold">Phụ kiện bi-a chính hãng</h3>
@@ -226,6 +167,12 @@ export default function Products({ brand: propBrand }) {
           onClose={() => setOrderingProduct(null)}
         />
       )}
+      <CompareModal
+        isOpen={showComparison}
+        onClose={() => setShowComparison(false)}
+        products={products || []}
+        onOrder={setOrderingProduct}
+      />
     </section>
   )
 }

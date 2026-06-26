@@ -19,12 +19,13 @@ import Footer from './components/Footer'
 import FloatingContact from './components/FloatingContact'
 import Admin from './components/Admin'
 import Chatbot from './components/Chatbot'
+import FakeOrders from './components/FakeOrders'
 
 export default function App() {
   const { theme, toggle } = useTheme()
   const [showAdmin, setShowAdmin] = useState(false)
   const [chatbotOpen, setChatbotOpen] = useState(false)
-  const { brand: dbBrand } = useBrand()
+  const { brand: dbBrand } = useBrand(showAdmin)
   const brand = dbBrand || fallbackBrand
 
   useEffect(() => {
@@ -96,6 +97,7 @@ export default function App() {
       <Footer brand={brand} />
       <FloatingContact brand={brand} chatbotOpen={chatbotOpen} setChatbotOpen={setChatbotOpen} />
       <Chatbot brand={brand} open={chatbotOpen} setOpen={setChatbotOpen} />
+      <FakeOrders />
     </>
   )
 }
