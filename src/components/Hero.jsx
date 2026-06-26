@@ -32,14 +32,14 @@ export default function Hero({ brand: propBrand }) {
             
             {/* Hot Sale Badge Overlay */}
             {b.price && (
-              <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-20 bg-black/80 backdrop-blur-md px-4 py-3 rounded-xl border border-gold/40 shadow-xl shadow-gold/15 animate-pulse-gold max-w-[220px] sm:max-w-[260px] md:max-w-[280px]">
+              <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-20 bg-black/85 backdrop-blur-md px-4 py-3 rounded-xl border border-gold/40 shadow-xl shadow-gold/15 animate-pulse-gold w-[250px] sm:w-[280px]">
                 {b.badge && (
                   <span className="inline-block bg-red-600 text-white text-[9px] md:text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-1 md:mb-1.5 shadow-sm">
                     {b.badge}
                   </span>
                 )}
                 <h3 className="text-white text-xs md:text-sm font-bold tracking-wide uppercase">{b.title}</h3>
-                <div className="mt-1 md:mt-2 flex items-baseline gap-1.5">
+                <div className="mt-1 md:mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                   <span className="text-gold text-lg md:text-2xl font-extrabold">{b.price}</span>
                   {b.oldPrice && (
                     <span className="text-white/50 text-xs md:text-sm line-through">{b.oldPrice}</span>
