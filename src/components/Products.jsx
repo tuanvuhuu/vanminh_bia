@@ -5,12 +5,14 @@ import DBSectionTitle from './DBSectionTitle'
 import Lightbox from './Lightbox'
 import OrderModal from './OrderModal'
 import CompareModal from './CompareModal'
+import ProductQuiz from './ProductQuiz'
 
 export default function Products({ brand: propBrand }) {
   const brand = propBrand || staticBrand
   const [box, setBox] = useState(null) // { images, startIndex }
   const [orderingProduct, setOrderingProduct] = useState(null)
   const [showComparison, setShowComparison] = useState(false)
+  const [showQuiz, setShowQuiz] = useState(false)
   const { data: products, loading } = useFetchTable('products')
 
   return (
@@ -127,13 +129,19 @@ export default function Products({ brand: propBrand }) {
         </div>
         )}
 
-      {/* Toggle Button for Comparison Matrix */}
-      <div className="mt-12 text-center">
+      {/* Toggle Button for Comparison Matrix & Product Finder Quiz */}
+      <div className="mt-12 flex flex-wrap justify-center gap-4">
         <button
           onClick={() => setShowComparison(!showComparison)}
           className="inline-flex items-center gap-2 rounded-full border border-gold/70 hover:border-gold px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-accent-ink dark:text-gold hover:bg-gold hover:text-black transition-all duration-300"
         >
           {showComparison ? '▲ Thu gọn so sánh' : '▼ So sánh chi tiết các dòng bàn'}
+        </button>
+        <button
+          onClick={() => setShowQuiz(true)}
+          className="inline-flex items-center gap-2 rounded-full bg-gold border border-gold px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-black hover:bg-black hover:text-gold hover:border-gold/80 transition-all duration-300 shadow-lg shadow-gold/15"
+        >
+          🔍 Trắc nghiệm tìm bàn phù hợp
         </button>
       </div>
 
@@ -174,6 +182,12 @@ export default function Products({ brand: propBrand }) {
       <CompareModal
         isOpen={showComparison}
         onClose={() => setShowComparison(false)}
+        products={products || []}
+        onOrder={setOrderingProduct}
+      />
+      <ProductQuiz
+        isOpen={showQuiz}
+        onClose={() => setShowQuiz(false)}
         products={products || []}
         onOrder={setOrderingProduct}
       />
