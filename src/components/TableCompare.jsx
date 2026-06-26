@@ -8,7 +8,8 @@ const COMPARISON_DETAILS = {
     heating: 'Sưởi nhiệt đa vùng độc lập cảm biến',
     balls: 'Aramith Pro-Cup TV (Bỉ) chuyên nghiệp',
     target: 'CLB siêu sang, giải đấu, cơ thủ chuyên nghiệp',
-    value: 'Cực kỳ cao cấp'
+    value: 'Cực kỳ cao cấp',
+    clearance: 'Tối ưu 5.7m × 4.45m (khoảng cách trống xung quanh ≥ 1.4m)'
   },
   'VK-RISE': {
     stone: 'Đá bùn đen cao cấp (dày 25mm, phẳng 99%)',
@@ -17,7 +18,8 @@ const COMPARISON_DETAILS = {
     heating: 'Sưởi điện tử tự động ngắt',
     balls: 'Aramith Premium / Dyna Pro',
     target: 'CLB chuyên nghiệp cao cấp, khách VIP',
-    value: 'Tối ưu thi đấu'
+    value: 'Tối ưu thi đấu',
+    clearance: 'Tối ưu 5.7m × 4.45m (khoảng cách trống xung quanh ≥ 1.4m)'
   },
   'VK-HUNTER': {
     stone: 'Đá xanh tự nhiên nhập khẩu (dày 25mm)',
@@ -26,7 +28,8 @@ const COMPARISON_DETAILS = {
     heating: 'Không hỗ trợ',
     balls: 'Dyna Titanium / CPBA',
     target: 'CLB phong trào chất lượng tầm trung',
-    value: 'Bán chạy nhất'
+    value: 'Bán chạy nhất',
+    clearance: 'Tối ưu 5.7m × 4.45m (khoảng cách trống xung quanh ≥ 1.4m)'
   },
   'VK-SILVER': {
     stone: 'Đá tự nhiên 3 tấm (dày 25mm)',
@@ -35,7 +38,8 @@ const COMPARISON_DETAILS = {
     heating: 'Không hỗ trợ',
     balls: 'Dyna Titanium / Joss',
     target: 'CLB học sinh, hồi vốn nhanh',
-    value: 'Tiết kiệm chi phí'
+    value: 'Tiết kiệm chi phí',
+    clearance: 'Tối ưu 5.7m × 4.45m (khoảng cách trống xung quanh ≥ 1.4m)'
   },
   'VK-HERO': {
     stone: 'Đá tự nhiên 3 tấm (dày 25mm)',
@@ -44,7 +48,18 @@ const COMPARISON_DETAILS = {
     heating: 'Không hỗ trợ',
     balls: 'Diamon Ultra-C',
     target: 'CLB học sinh, giải trí gia đình',
-    value: 'Giá rẻ nhất'
+    value: 'Giá rẻ nhất',
+    clearance: 'Tối ưu 5.7m × 4.45m (khoảng cách trống xung quanh ≥ 1.4m)'
+  },
+  'VK-PRO-EVO': {
+    stone: 'Đá đen tự nhiên phẳng 99%',
+    frame: 'Khung gỗ Plywood liền yến dày 50mm chắc chắn',
+    cushion: 'Băng Uylin K55 chuẩn thi đấu',
+    heating: 'Không hỗ trợ',
+    balls: 'Bóng Dyna Rhodium nhập khẩu',
+    target: 'CLB phong trào, gia đình, văn phòng',
+    value: 'Giá tốt nhất phân khúc',
+    clearance: 'Tối ưu 5.7m × 4.45m (khoảng cách trống xung quanh ≥ 1.4m)'
   }
 }
 
@@ -58,7 +73,8 @@ export default function TableCompare({ products, onOrder }) {
       heating: 'Không hỗ trợ',
       balls: 'Bóng tiêu chuẩn',
       target: 'Phù hợp CLB phong trào',
-      value: 'Tiêu chuẩn'
+      value: 'Tiêu chuẩn',
+      clearance: 'Tối ưu 5.7m × 4.45m (khoảng cách trống xung quanh ≥ 1.4m)'
     }
   }
 
@@ -83,6 +99,7 @@ export default function TableCompare({ products, onOrder }) {
     { label: 'Bóng đi kèm (Balls)', key: 'balls', icon: '🎱' },
     { label: 'Phù hợp nhu cầu', key: 'target', icon: '🎯' },
     { label: 'Kích thước sử dụng', key: 'size', icon: '📏', isDirect: true },
+    { label: 'Khoảng cách đặt bàn', key: 'clearance', icon: '📐' },
   ]
 
   return (

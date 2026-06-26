@@ -94,6 +94,10 @@ export default function Products({ brand: propBrand }) {
 
                   <p className="mt-3 text-xs text-muted/80">{p.size}</p>
 
+                  <div className="mt-2.5 bg-accent-ink/5 dark:bg-gold/5 border border-accent-ink/10 dark:border-gold/10 rounded-lg p-2.5 text-[11px] text-muted leading-relaxed">
+                    <span className="font-bold text-accent-ink dark:text-gold">📐 Khoảng cách đặt bàn:</span> Tối thiểu chừa trống <strong>1.4m - 1.5m</strong> từ thành băng đến tường hoặc bàn khác (Diện tích đặt bàn tối ưu: <strong>5.7m × 4.45m</strong>).
+                  </div>
+
                   <div className="mt-4 flex items-end justify-between border-t border-line pt-4">
                     <div>
                       {(p.old_price || p.oldPrice) && <span className="block text-xs text-muted line-through">{p.old_price || p.oldPrice}</span>}
