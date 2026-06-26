@@ -144,7 +144,7 @@ export default function TableCompare({ products, onOrder }) {
                 <span className="text-[10px] text-muted font-mono">{modelA.code}</span>
               </div>
               <div className="text-right">
-                {modelA.oldPrice && <span className="block text-[10px] text-muted line-through">{modelA.oldPrice}</span>}
+                {(modelA.old_price || modelA.oldPrice) && <span className="block text-[10px] text-muted line-through">{modelA.old_price || modelA.oldPrice}</span>}
                 <span className="font-display text-lg font-bold text-accent-ink dark:text-gold">{modelA.price}</span>
               </div>
             </div>
@@ -174,7 +174,7 @@ export default function TableCompare({ products, onOrder }) {
                 <span className="text-[10px] text-muted font-mono">{modelB.code}</span>
               </div>
               <div className="text-right">
-                {modelB.oldPrice && <span className="block text-[10px] text-muted line-through">{modelB.oldPrice}</span>}
+                {(modelB.old_price || modelB.oldPrice) && <span className="block text-[10px] text-muted line-through">{modelB.old_price || modelB.oldPrice}</span>}
                 <span className="font-display text-lg font-bold text-accent-ink dark:text-gold">{modelB.price}</span>
               </div>
             </div>

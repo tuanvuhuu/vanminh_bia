@@ -58,6 +58,17 @@ export const stats = [
 // Các dòng bàn bi-a Vikings (giá & thông số theo bảng báo giá)
 export const products = [
   {
+    name: 'Vikings Pro-Evo',
+    code: 'VK-PRO-EVO',
+    badge: 'Khuyến mãi',
+    price: '60.000.000đ',
+    oldPrice: '70.000.000đ',
+    frame: 'Khung gỗ Plywood liền yếm 50mm',
+    specs: ['Băng Uylin K55', 'Nỉ CPBA Competition', 'Bóng Dyna Rhodium', 'Gậy Dragon chuyên dụng'],
+    size: 'Phủ bì 290×165×82cm · Sử dụng 254×127cm',
+    image: '/images/sales/evo re.jpg',
+  },
+  {
     name: 'Vikings Monster',
     code: 'VK25',
     badge: 'Cao cấp nhất',

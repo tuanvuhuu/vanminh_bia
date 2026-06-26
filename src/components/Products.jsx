@@ -96,7 +96,7 @@ export default function Products({ brand: propBrand }) {
 
                   <div className="mt-4 flex items-end justify-between border-t border-line pt-4">
                     <div>
-                      {p.oldPrice && <span className="block text-xs text-muted line-through">{p.oldPrice}</span>}
+                      {(p.old_price || p.oldPrice) && <span className="block text-xs text-muted line-through">{p.old_price || p.oldPrice}</span>}
                       <span className="font-display text-xl font-bold text-accent-ink">{p.price}</span>
                     </div>
                     <button
